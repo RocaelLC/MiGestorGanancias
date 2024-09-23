@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Ganancias</title>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styleGanancias.css">
+
+    <!-- SweetAlert2 (opcional si lo vas a usar en este módulo) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mis Ganancias</h1>
+        <div id="collage" class="collage-container">
+            <!-- Aquí se mostrarán las ganancias en forma de collage -->
+        </div>
+    </div>
+
+    <!-- Firebase Configuración -->
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0g3hI2fFBf8dD5rYkt00IY6iyKf0HoUU",
+            authDomain: "migestor-fc269.firebaseapp.com",
+            projectId: "migestor-fc269",
+            storageBucket: "migestor-fc269.appspot.com",
+            messagingSenderId: "901999644556",
+            appId: "1:901999644556:web:d39a8aebd3a22069ca10a9"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Inicializar Firestore
+        const db = firebase.firestore();
+    </script>
+
+    <!-- Archivo JavaScript -->
+    <script src="js/MisGanancias.js"></script>
+</body>
+</html>

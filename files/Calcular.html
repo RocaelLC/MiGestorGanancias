@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+    <!-- Metaetiquetas -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Ganancias</title>
+    
+    <!-- Firebase (versión 8.10.0) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styleCalcular.css">
 </head>
 <body>
@@ -29,6 +38,9 @@
         </form>
     </div>
 
+    
+
+    <!-- Archivo JavaScript personalizado -->
     <script src="js/ProfitCalculator.js"></script>
 </body>
 </html>
