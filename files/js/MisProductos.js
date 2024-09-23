@@ -12,6 +12,19 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(); // Inicializa Firestore
 
+// Verifica si el usuario está autenticado
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        loadProducts(); // Carga los productos si el usuario está autenticado
+    } else {
+        Swal.fire({
+            title: 'Error',
+            text: 'Debes iniciar sesión para ver tus productos',
+            icon: 'error'
+        });
+    }
+});
+
 document.getElementById('productForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -39,7 +52,8 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
             name: name,
             id: id,
             price: price,
-            image: image
+            image: image,
+            userId: firebase.auth().currentUser.uid // Guarda el ID del usuario
         });
 
         // Limpia el formulario
@@ -67,7 +81,8 @@ async function loadProducts() {
     const productsList = document.getElementById('products');
     productsList.innerHTML = ''; // Limpia la lista
 
-    const snapshot = await db.collection('productos').get();
+    const userId = firebase.auth().currentUser.uid; // Obtiene el ID del usuario autenticado
+    const snapshot = await db.collection('productos').where('userId', '==', userId).get(); // Filtra productos por usuario
     snapshot.forEach(doc => {
         const product = doc.data();
         const card = document.createElement('div');
@@ -113,6 +128,3 @@ async function deleteProduct(e) {
         });
     }
 }
-
-// Carga los productos al cargar la página
-window.onload = loadProducts;

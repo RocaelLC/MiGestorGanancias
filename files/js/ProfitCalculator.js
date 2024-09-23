@@ -15,50 +15,57 @@
         // Inicializa Firestore
         const db = firebase.firestore();
    
-// Función para calcular las ganancias
-function calculateProfit() {
-    const quantity = document.getElementById('quantity').value;
-    const purchasePrice = document.getElementById('purchasePrice').value;
-    const salePrice = document.getElementById('salePrice').value;
-    const product = document.getElementById('productName').value;
-
-    // Cálculo de las ganancias
-    const totalPurchase = quantity * purchasePrice;
-    const totalSale = quantity * salePrice;
-    const profit = totalSale - totalPurchase;
-
-    // Datos a guardar en Firestore
-    const profitData = {
-        productName: product,
-        quantity: quantity,
-        purchasePrice: purchasePrice,
-        salePrice: salePrice,
-        profit: profit,
-        date: firebase.firestore.Timestamp.fromDate(new Date())  // Fecha de registro
-    };
-
-    // Guardar los datos en Firestore en la colección 'profits'
-    db.collection('Ganancias').add(profitData)
-        .then(() => {
-            // Mostrar alerta con SweetAlert cuando los datos se guarden correctamente
-            Swal.fire({
-                title: `Ganancias: ${profit} pesos`,
-                text: `Se ha generado tus ganancias por el producto ${product}.`,
-                icon: 'success'
-            }).then(() => {
-                // Limpiar el formulario después de que se cierre el SweetAlert
-                document.getElementById('productName').value = '';
-                document.getElementById('quantity').value = '';
-                document.getElementById('purchasePrice').value = '';
-                document.getElementById('salePrice').value = '';
-            });
-        })
-        .catch((error) => {
-            // Manejo de errores si ocurre un problema al guardar en Firestore
-            Swal.fire({
-                title: 'Error',
-                text: `Hubo un problema al guardar las ganancias: ${error.message}`,
-                icon: 'error'
-            });
-        });
-}
+        function calculateProfit() {
+            const quantity = document.getElementById('quantity').value;
+            const purchasePrice = document.getElementById('purchasePrice').value;
+            const salePrice = document.getElementById('salePrice').value;
+            const product = document.getElementById('productName').value;
+        
+            const totalPurchase = quantity * purchasePrice;
+            const totalSale = quantity * salePrice;
+            const profit = totalSale - totalPurchase;
+        
+            // Obtener el UID del usuario actual
+            const user = firebase.auth().currentUser;
+        
+            if (user) {
+                const profitData = {
+                    productName: product,
+                    quantity: quantity,
+                    purchasePrice: purchasePrice,
+                    salePrice: salePrice,
+                    profit: profit,
+                    date: firebase.firestore.Timestamp.fromDate(new Date()),
+                    uid: user.uid // Guardar el UID del usuario
+                };
+        
+                // Guardar los datos en Firestore en la colección 'profits'
+                db.collection('profits').add(profitData)
+                    .then(() => {
+                        Swal.fire({
+                            title: `Ganancias: ${profit} pesos`,
+                            text: `Se ha generado tus ganancias por el producto ${product}.`,
+                            icon: 'success'
+                        }).then(() => {
+                            document.getElementById('productName').value = '';
+                            document.getElementById('quantity').value = '';
+                            document.getElementById('purchasePrice').value = '';
+                            document.getElementById('salePrice').value = '';
+                        });
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            title: 'Error',
+                            text: `Hubo un problema al guardar las ganancias: ${error.message}`,
+                            icon: 'error'
+                        });
+                    });
+            } else {
+                Swal.fire({
+                    title: 'No autenticado',
+                    text: 'Debes estar autenticado para guardar ganancias.',
+                    icon: 'warning'
+                });
+            }
+        }
+        

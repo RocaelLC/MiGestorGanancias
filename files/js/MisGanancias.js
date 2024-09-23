@@ -3,33 +3,55 @@ const collageContainer = document.getElementById('collage');
 
 // Función para mostrar las ganancias en forma de collage
 function mostrarGanancias() {
-    // Obtener las ganancias desde la colección 'profits' en Firestore
-    db.collection('Ganancias').get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // Obtener los datos de cada documento (ganancia)
-            const profitData = doc.data();
+    // Obtener el UID del usuario actual
+    const user = firebase.auth().currentUser;
 
-            // Crear un div para cada ganancia
-            const profitCard = document.createElement('div');
-            profitCard.classList.add('profit-card'); // Estilo de tarjeta
+    if (user) {
+        // Filtrar las ganancias por el UID del usuario actual
+        db.collection('profits').where('uid', '==', user.uid).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    const profitData = doc.data();
 
-            // Contenido de la tarjeta (información de las ganancias)
-            profitCard.innerHTML = `
-                <h3>Producto: ${profitData.productName}</h3>
-                <p>Cantidad: ${profitData.quantity}</p>
-                <p>Precio de Compra: ${profitData.purchasePrice} pesos</p>
-                <p>Precio de Venta: ${profitData.salePrice} pesos</p>
-                <p>Ganancia: ${profitData.Ganancias} pesos</p>
-                <p>Fecha: ${new Date(profitData.date.seconds * 1000).toLocaleDateString()}</p>
-            `;
+                    // Crear una tarjeta para cada ganancia
+                    const profitCard = document.createElement('div');
+                    profitCard.classList.add('profit-card');
 
-            // Añadir la tarjeta al contenedor del collage
-            collageContainer.appendChild(profitCard);
+                    // Contenido de la tarjeta
+                    profitCard.innerHTML = `
+                        <h3>Producto: ${profitData.productName}</h3>
+                        <p>Cantidad: ${profitData.quantity}</p>
+                        <p>Precio de Compra: ${profitData.purchasePrice} pesos</p>
+                        <p>Precio de Venta: ${profitData.salePrice} pesos</p>
+                        <p>Ganancia: ${profitData.profit} pesos</p>
+                        <p>Fecha: ${new Date(profitData.date.seconds * 1000).toLocaleDateString()}</p>
+                    `;
+
+                    // Añadir la tarjeta al contenedor del collage
+                    collageContainer.appendChild(profitCard);
+                });
+            })
+            .catch((error) => {
+                console.error("Error al obtener las ganancias: ", error);
+            });
+    } else {
+        Swal.fire({
+            title: 'No autenticado',
+            text: 'Debes iniciar sesión para ver tus ganancias.',
+            icon: 'warning'
         });
-    }).catch((error) => {
-        console.error("Error al obtener las ganancias: ", error);
-    });
+    }
 }
 
-// Llamar a la función para mostrar las ganancias cuando se cargue la página
-window.onload = mostrarGanancias;
+// Ejecutar la función al cargar la página
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        mostrarGanancias();
+    } else {
+        Swal.fire({
+            title: 'No autenticado',
+            text: 'Debes iniciar sesión para ver tus ganancias.',
+            icon: 'warning'
+        });
+    }
+});
