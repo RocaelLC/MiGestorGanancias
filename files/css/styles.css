@@ -10,7 +10,7 @@ body, html {
 }
 
 body {
-    background-image: url("img/fondo.jpg"); /* Reemplaza con la ruta de tu imagen */
+    background-image: url("../img/fondo.jpg"); /* Reemplaza con la ruta de tu imagen */
     background-size: cover;
     display: flex;
     justify-content: center;
