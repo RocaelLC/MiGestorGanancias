@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla de Inicio</title>
+    <link rel="stylesheet" href="css/styleInicio.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> <!-- Agrega esta línea -->
+</head>
+
+<body>
+    <!-- Botón de salir en la parte superior derecha -->
+    <button id="btnLogout" class="logout-button">Salir</button>
+
+    <div class="container">
+        <h1>Pantalla de Inicio</h1>
+        <div class="button-container">
+            <button id="btnCalcular" onclick="window.location.href='Calcular.html'">Calcular</button>
+            <button id="btnProductos" onclick="window.location.href='MisProductos.html'">Mis Productos</button>
+            <button id="btnGanancias" onclick="window.location.href='MisGanancias.html'">Mis Ganancias</button>
+        </div>
+    </div>
+    <!-- Carga de scripts -->
+    <script src="js/Inicio.js"></script>
+
+</body>
+
+</html>

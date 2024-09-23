@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Cuenta</title>
+    <link rel="stylesheet" href="css/styleRegistro.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="register-box">
+            <h2>Crear Cuenta</h2>
+            <form id="registerForm">
+                <div class="input-box">
+                    <input type="email" placeholder="Correo Electrónico" id="emailRegister" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Crear Contraseña" id="passwordRegister" required>
+                </div>
+                <div class="button-box">
+                    <button type="submit">Registrar</button>
+                    <button type="button" onclick="window.location.href='index.html'">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Incluye las bibliotecas de Firebase en modo compat -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <!-- Incluye el archivo firebase.js para gestionar el registro -->
+    <script src="js/firebase.js"></script>
+</body>
+
+</html>

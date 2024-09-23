@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Productos</title>
+    <link rel="stylesheet" href="css/styleProductos.css">
+    <!-- Importa Firebase App y Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <h1 id="title">Mis Productos</h1>
+        <div>
+            <button class="btn-volver" onclick="window.location.href='Inicio.html'">Volver</button>
+        </div>
+        <div>
+            <h2 id="sub-title">Agregar Producto</h2>
+            <form id="productForm">
+                <input type="text" id="productName" placeholder="Nombre del producto" required>
+                <input type="text" id="productId" placeholder="ID del producto" required>
+                <input type="number" id="productPrice" placeholder="Precio del producto" required>
+                <input type="url" id="productImage" placeholder="URL de la imagen" required>
+                <button type="submit">Agregar Producto</button>
+            </form>
+        </div>
+        <div id="productList">
+            <h2 id="listproduct">Lista de Productos</h2>
+            <div id="products" class="product-grid"></div>
+        </div>
+    </div>
+    <script src="js/MisProductos.js"></script>
+</body>
+
+</html>

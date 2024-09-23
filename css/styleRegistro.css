@@ -1,0 +1,44 @@
+/* Estilos para la pantalla de registro */
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.register-box {
+    background-color: rgba(255, 255, 255, 0.904);
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    margin: auto;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button-box {
+    margin-bottom: 20px;
+}
+
+.button-box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ff0040;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-box button:hover {
+    background-color: #3b4249;
+}
+body{
+    background-image: url(img/ec.png)
+}

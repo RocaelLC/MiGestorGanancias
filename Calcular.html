@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Ganancias</title>
+    <link rel="stylesheet" href="css/styleCalcular.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Calculadora de Ganancias</h1>
+        <form id="profitForm">
+            <label for="productName">Nombre de Producto:</label>
+            <input type="text" id="productName" name="productName" class="input-field" required>
+            
+            <label for="quantity">Cantidad Comprada:</label>
+            <input type="number" id="quantity" name="quantity" class="input-field" required>
+            
+            <label for="purchasePrice">Precio de Compra:</label>
+            <input type="number" id="purchasePrice" name="purchasePrice" class="input-field" required>
+            
+            <label for="salePrice">Precio al Cliente:</label>
+            <input type="number" id="salePrice" name="salePrice" class="input-field" required>
+            
+            <button type="button" class="submit-button" onclick="calculateProfit()">Calcular Ganancias</button>
+            <button type="reset" class="reset-button" onclick="window.location.href='Inicio.html'"> Volver</button>
+        </form>
+    </div>
+
+    <script src="js/ProfitCalculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-image: url("img/fondo.jpg"); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #0f0f0f79;
+    border-radius: 5px;
+    outline: none;
+    background: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #007BFF;
+}
+
+.input-box label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.input-box input:focus + label,
+.input-box input:not(:placeholder-shown) + label {
+    top: -20px;
+    font-size: 12px;
+    color: #007BFF;
+}
+
+.button-box {
+    display: flex;
+    justify-content: space-between;
+}
+.button-box button:hover {
+    background-color: #3b4249;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 20px;
+   
+ }
+ 

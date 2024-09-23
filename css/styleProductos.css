@@ -1,0 +1,136 @@
+#title{text-align: center;
+}
+
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-volver:hover {
+    background-color: #641e1e;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+#title {
+    text-align: center;
+}
+
+
+
+.btn-volver:hover {
+    background-color: #0056b3;
+}
+
+#productForm {
+    background: white;
+    padding: 200px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#productForm input {
+    width: calc(120% - 100px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+#productForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#productForm button:hover {
+    background-color: #218838;
+}
+
+#productList {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+#products {
+    list-style-type:none;
+    padding: 0;
+}
+
+#products li {
+    background: white;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#products img {
+    max-width: 100px;
+    border-radius: 5px;
+}
+#sub-title{
+    text-align: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta el tamaño mínimo de las columnas */
+    gap: 16px; /* Espacio entre los productos */
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    padding: 16px; 
+    text-align: center; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.product-card img {
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 4px; 
+}
+.btn-eliminar {
+    background-color: #ff4d4d; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    font-size: 16px; 
+}
+
+.btn-eliminar:hover {
+    background-color: #ff1a1a; 
+}
+#listproduct{
+    text-align: center;
+}
