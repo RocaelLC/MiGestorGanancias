@@ -1,4 +1,5 @@
 #title{text-align: center;
+    color: white;
 }
 
 .btn-volver {
@@ -18,13 +19,15 @@
 }
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    background: linear-gradient(90deg, #3d4052,#282a36,#09090c);    margin: 0;
     padding: 20px;
+
 }
 
 h1, h2 {
-    color: #333;
+        color: white;
+        padding: 20px;
+
 }
 
 #title {
@@ -38,12 +41,12 @@ h1, h2 {
 }
 
 #productForm {
-    background: white;
-    padding: 200px;
+    background: rgba(255, 255, 255, 0.692);
+    padding: 100px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
-    margin: 20px auto;
+    margin: 100px auto;
 }
 
 #productForm input {
@@ -59,8 +62,8 @@ h1, h2 {
     padding: 10px;
     background-color: #28a745;
     color: white;
-    border: none;
-    border-radius: 5px;
+    border: 20px;
+    border-radius: 15px;
     cursor: pointer;
 }
 
@@ -100,8 +103,8 @@ body {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta el tamaño mínimo de las columnas */
-    gap: 16px; /* Espacio entre los productos */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 16px; 
 }
 
 .product-card {
@@ -110,6 +113,8 @@ body {
     padding: 16px; 
     text-align: center; 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    background-color: #6cd5fb80
+    
 }
 
 .product-card img {

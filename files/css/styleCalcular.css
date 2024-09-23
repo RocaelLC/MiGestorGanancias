@@ -92,5 +92,22 @@ label {
     cursor: pointer;
 }
 body{
-    background-image: url(../img/ec.png);
+    background: linear-gradient(90deg, #3d4052,#282a36,#09090c);
+
+}
+
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-volver:hover {
+    background-color: #641e1e;
 }
