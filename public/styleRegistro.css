@@ -1,0 +1,93 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(../img/ec.png);
+    background-size: cover; /* Ajusta la imagen de fondo para cubrir toda la pantalla */
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Caja de registro */
+.register-box {
+    background-color: rgba(255, 255, 255, 0.904);
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 350px; /* Limita el tamaño en pantallas grandes */
+    margin: auto;
+}
+
+/* Estilos de los campos de entrada */
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilos del contenedor de botones */
+.button-box {
+    margin-bottom: 20px;
+}
+
+/* Estilos del botón de registro */
+.button-box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ff0040;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.button-box button:hover {
+    background-color: #3b4249;
+}
+
+/* Media Queries para hacer la pantalla de registro responsiva */
+
+/* Para pantallas de hasta 768px */
+@media (max-width: 768px) {
+    .register-box {
+        padding: 30px 20px; /* Reduce el padding en pantallas más pequeñas */
+    }
+
+    .button-box button {
+        font-size: 14px; /* Ajusta el tamaño de la fuente del botón */
+    }
+
+    .input-box input {
+        font-size: 14px; /* Ajusta el tamaño de la fuente en los campos de entrada */
+    }
+}
+
+/* Para pantallas de hasta 480px (móviles) */
+@media (max-width: 480px) {
+    .register-box {
+        padding: 20px 15px; /* Ajusta el padding aún más para móviles */
+        width: 80%; /* Hace que el formulario ocupe más espacio en pantallas móviles */
+    }
+
+    .button-box button {
+        padding: 12px 20px; /* Ajusta el padding del botón */
+        font-size: 14px; /* Ajusta el tamaño de la fuente en dispositivos móviles */
+    }
+
+    .input-box input {
+        font-size: 12px; /* Ajusta el tamaño de la fuente en los campos de entrada */
+        width: 80%;
+    }
+}

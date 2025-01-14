@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="css/styleGanancias.css">
+    <link rel="stylesheet" href="styleGanancias.css">
 
     <!-- SweetAlert2 (opcional si lo vas a usar en este módulo) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
@@ -24,8 +24,15 @@
         </div>
         <div id="collage" class="collage-container">
             <!-- Aquí se mostrarán las ganancias en forma de collage -->
+             
         </div>
+        
     </div>
+    <div class="container-btn">
+        <button id="reiniciarGanancias" class="btn-reiniciar">Reiniciar Ganancias</button>
+    </div>
+    
+    
 
     <!-- Firebase Configuración -->
     <script>
@@ -47,6 +54,8 @@
     </script>
 
     <!-- Archivo JavaScript -->
-    <script src="js/MisGanancias.js"></script>
+    <script src="MisGanancias.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
+
 </body>
 </html>

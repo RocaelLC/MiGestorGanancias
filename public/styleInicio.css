@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    background: white;
+    background-size: 1970px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    text-align: center;
+    margin-top: 50px;
+    padding: 0 20px; /* Agregado para evitar márgenes en pantallas pequeñas */
+}
+
+/* Título */
+h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de botones */
+.button-container {
+    margin-bottom: 20px;
+}
+
+/* Estilo de botones */
+.button-container button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 26px;
+    border-radius: 24px;
+    border-style: none;
+    cursor: pointer;
+}
+
+/* Estilo al pasar el cursor sobre los botones */
+.button-container button:hover {
+    background-color: #28a745;
+}
+
+/* Estilo para el formulario */
+#calcularForm {
+    margin-top: 20px;
+    text-align: left;
+    display: inline-block;
+}
+
+/* Estilo de las cajas de entrada */
+.input-box {
+    margin: 10px 0;
+}
+
+/* Estilo de los campos de entrada */
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    font-size: 16px; /* Asegura que la fuente sea legible en dispositivos pequeños */
+}
+
+/* Botón de Logout */
+.logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Media Queries para Responsividad */
+
+/* Para pantallas de hasta 768px */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 36px; /* Reduce el tamaño del título para pantallas más pequeñas */
+    }
+
+    .button-container button {
+        font-size: 20px; /* Ajusta el tamaño de los botones */
+        padding: 8px 16px;
+    }
+
+    .container {
+        margin-top: 40px;
+    }
+
+    input {
+        padding: 10px; /* Aumenta el padding de los campos para mejorar la experiencia táctil */
+    }
+}
+
+/* Para pantallas de hasta 480px (móviles) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 28px; /* Hace que el título sea aún más pequeño en dispositivos móviles */
+    }
+
+    .button-container button {
+        font-size: 12px; /* Ajusta el tamaño de los botones en móviles */
+        padding: 8px 12px;
+    }
+
+    .container {
+        margin-top: 10px; /* Reduce el margen superior para pantallas más pequeñas */
+        padding: 0 10px; /* Agrega algo de espacio lateral */
+    }
+
+    .input-box {
+        margin: 8px 0; /* Reduce el margen en pantallas pequeñas */
+    }
+
+    input {
+        padding: 12px; /* Asegura que los campos de entrada sean fáciles de usar en pantallas táctiles */
+    }
+}

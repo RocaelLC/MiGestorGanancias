@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, #3d4052, #282a36, #09090c);
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+/* Contenedor general */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilo del título */
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem; /* Tamaño de fuente ajustado para pantallas más pequeñas */
+}
+
+/* Contenedor de las tarjetas */
+.collage-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Estilo de las tarjetas */
+.profit-card {
+    background-color: #75bd85;
+    font-family: Arial, sans-serif;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(243, 243, 243, 0.952);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.profit-card h3 {
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.profit-card p {
+    margin: 5px 0;
+    color: #f0ecec;
+}
+
+/* Botón Volver */
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-volver:hover {
+    background-color: #641e1e;
+}
+
+/* Media Queries para Diseño Responsivo */
+
+/* Para pantallas medianas y pequeñas */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* Reducir el tamaño de la fuente del título */
+    }
+
+    .collage-container {
+        gap: 15px;
+    }
+
+    .profit-card {
+        width: 90%; /* Las tarjetas ocupan el 100% en pantallas más pequeñas */
+        max-width: 200px; /* Máximo tamaño de tarjeta */
+    }
+
+    .btn-volver {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 5px;
+    }
+}
+
+/* Para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; /* Más pequeño para adaptarse a pantallas móviles */
+    }
+
+    .profit-card {
+        width: 90%; /* Las tarjetas ocupan todo el ancho disponible */
+        max-width: 70%; /* Evita que las tarjetas sean demasiado grandes */
+    }
+
+    .collage-container {
+        flex-direction: column;
+        align-items: center; /* Centra las tarjetas */
+    }
+
+    .btn-volver {
+        width: 50%; /* El botón "Volver" ocupa el 100% del ancho */
+        padding: 12px 0; /* Ajusta el padding del botón */
+        left: 1PX;
+        margin: 20px;
+    }
+}
+.profit-summary {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.container-btn {
+    display: flex;
+    justify-content: center;  /* Centra el contenido horizontalmente */
+    align-items: center;      /* Centra el contenido verticalmente */
+    height: 100px;            /* Ocupa el 100% de la altura de la pantalla */
+    margin-top: 20px;         /* Puedes ajustar el margen superior si es necesario */
+}
+
+.btn-reiniciar {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-reiniciar:hover {
+    background-color: #9e1414;
+}
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#excel-files-container {
+    margin-top: 40px;
+    
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#excel-files-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#excel-files-list li {
+    margin-bottom: 10px;
+}

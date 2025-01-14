@@ -11,6 +11,7 @@ const firebaseConfig = {
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(); // Inicializa Firestore
+const storage = firebase.storage();
 
 // Verifica si el usuario está autenticado
 firebase.auth().onAuthStateChanged((user) => {
@@ -29,40 +30,42 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = document.getElementById('productName').value;
-    const id = document.getElementById('productId').value;
     const price = document.getElementById('productPrice').value;
-    const image = document.getElementById('productImage').value;
+    const imageFile = document.getElementById('productImage').files[0]; // Obtiene el archivo de imagen
 
-    // Verifica si el producto con el mismo ID ya existe
-    const existingProduct = await db.collection('productos').where('id', '==', id).get();
-
-    if (!existingProduct.empty) {
-        // Si el producto ya existe, muestra un mensaje de error
+    if (!imageFile) {
         Swal.fire({
             title: 'Error',
-            text: 'Ya existe un producto con ese ID',
+            text: 'Debes subir una imagen',
             icon: 'error'
         });
-        return; // Sal de la función
+        return;
     }
 
-    // Agrega el producto a Firestore
+    // Generar un nombre único para la imagen usando un timestamp
+    const storageRef = storage.ref();
+    const imageRef = storageRef.child(`images/${Date.now()}_${imageFile.name}`);
+
     try {
+        // Sube la imagen a Firebase Storage
+        const snapshot = await imageRef.put(imageFile);
+        const imageUrl = await snapshot.ref.getDownloadURL(); // Obtén la URL de descarga
+
+        // Agrega el producto a Firestore con la URL de la imagen y un ID generado automáticamente
         await db.collection('productos').add({
             name: name,
-            id: id,
             price: price,
-            image: image,
+            image: imageUrl,
             userId: firebase.auth().currentUser.uid // Guarda el ID del usuario
         });
 
         // Limpia el formulario
         document.getElementById('productForm').reset();
-        
-        // Muestra la alerta de éxito con SweetAlert2
+
+        // Muestra la alerta de éxito
         Swal.fire({
             title: 'Éxito',
-            text: `Hemos registrado tu producto`,
+            text: 'Hemos registrado tu producto',
             icon: 'success'
         });
 
@@ -91,7 +94,7 @@ async function loadProducts() {
         card.innerHTML = `
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
-            <p>ID: ${product.id}</p>
+            
             <p>Precio: ${product.price} pesos</p>
             <button class="btn-eliminar" data-id="${doc.id}">Eliminar</button> <!-- Botón de eliminar -->
         `;

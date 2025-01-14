@@ -1,0 +1,126 @@
+#title{text-align: center;
+    color: white;
+}
+#sub-title{
+    text-align: center;
+}
+#productList{
+    text-align: center;
+}
+
+.btn-volver {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-volver:hover {
+    background-color: #641e1e;
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta la cantidad de columnas según el tamaño de la pantalla */
+    gap: 16px; /* Espacio entre los productos */
+    padding: 20px; /* Relleno alrededor de la grid */
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background-color: #fff; /* Blanco para contraste */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Efecto al pasar el mouse */
+}
+
+.product-card img {
+    width: 100%; /* Hace que la imagen ocupe todo el ancho */
+    height: 150px; /* Limita la altura para uniformidad */
+    object-fit: cover; /* Mantiene la proporción de la imagen */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.product-card h3 {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.product-card button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-card button:hover {
+    background-color: #218838;
+}
+
+/* Aseguramos que en pantallas pequeñas los elementos se alineen mejor */
+@media (max-width: 768px) {
+    .product-card {
+        padding: 10px;
+        font-size: 14px; /* Reducción del tamaño de fuente */
+        text-align: center;
+    }
+
+    .product-card img {
+        height: 120px; /* Ajusta la altura de las imágenes en pantallas pequeñas */
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajusta las columnas para móviles */
+    }
+}
+#productForm {
+    background: rgba(255, 255, 255, 0.9); /* Fondo más transparente */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    width: 90%; /* Se ajusta para pantallas pequeñas */
+    text-align: center;
+}
+
+#productForm input, #productForm select, #productForm button {
+    width: 90%; /* Asegura que todos los campos y botones ocupen el ancho completo */
+    padding: 12px; /* Mejora la usabilidad en móviles */
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+#productForm button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+#productForm button:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 768px) {
+    #productForm {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+}
