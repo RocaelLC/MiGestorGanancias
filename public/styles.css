@@ -12,7 +12,6 @@ body, html {
 
 /* Fondo de pantalla */
 body {
-    background-image: url("../img/fondo.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -27,18 +26,18 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding: 20px;
+    padding: 50px;
 }
 
 /* Caja de login */
 .login-box {
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 40px;
+    padding: 50px;
     border-radius: 10px;
     box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    max-width: 400px; /* Limita el ancho máximo de la caja */
+    max-width: 900px; /* Limita el ancho máximo de la caja */
 }
 
 /* Título */
@@ -46,6 +45,7 @@ h2 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
+    color: black;
 }
 
 /* Contenedor de los campos de entrada */
