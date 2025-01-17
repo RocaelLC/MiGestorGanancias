@@ -9,6 +9,7 @@ body {
 
 /* Contenedor principal */
 .container {
+    color: #000;
     text-align: center;
     margin-top: 50px;
     padding: 0 20px; /* Agregado para evitar márgenes en pantallas pequeñas */
@@ -123,4 +124,13 @@ input {
     input {
         padding: 12px; /* Asegura que los campos de entrada sean fáciles de usar en pantallas táctiles */
     }
+}
+.information{
+    color: black;
+    font-size: 18px;
+    margin: 18px;
+}
+.img-fondo{
+    width: 10%;
+    height: 10%;
 }
