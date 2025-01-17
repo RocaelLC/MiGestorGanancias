@@ -1,7 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
-    background: white;
-    background-size: 1970px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background-size: cover;
     color: white;
     margin: 0;
     padding: 0;
@@ -9,36 +9,48 @@ body {
 
 /* Contenedor principal */
 .container {
-    color: #000;
+    color: #ffffff;
     text-align: center;
     margin-top: 50px;
-    padding: 0 20px; /* Agregado para evitar márgenes en pantallas pequeñas */
+    padding: 0 20px; /* Evita márgenes en pantallas pequeñas */
 }
 
 /* Título */
 h1 {
     font-size: 60px;
     margin-bottom: 20px;
+    background: -webkit-linear-gradient(#160505, #180f03);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Contenedor de botones */
 .button-container {
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Espaciado entre botones */
 }
 
 /* Estilo de botones */
 .button-container button {
     padding: 10px 20px;
-    margin: 10px;
-    font-size: 26px;
+    font-size: 20px;
     border-radius: 24px;
-    border-style: none;
+    border: none;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilo al pasar el cursor sobre los botones */
 .button-container button:hover {
-    background-color: #28a745;
+    background-color: #7420b4;
+    transform: translateY(-3px);
 }
 
 /* Estilo para el formulario */
@@ -59,7 +71,10 @@ input {
     padding: 8px;
     margin-top: 5px;
     box-sizing: border-box;
-    font-size: 16px; /* Asegura que la fuente sea legible en dispositivos pequeños */
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Botón de Logout */
@@ -73,10 +88,23 @@ input {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .logout-button:hover {
     background-color: #d32f2f;
+}
+
+/* Estilo para información */
+.information {
+    color: white;
+    font-size: 18px;
+    margin: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Media Queries para Responsividad */
@@ -88,7 +116,7 @@ input {
     }
 
     .button-container button {
-        font-size: 20px; /* Ajusta el tamaño de los botones */
+        font-size: 16px; /* Ajusta el tamaño de los botones */
         padding: 8px 16px;
     }
 
@@ -108,7 +136,7 @@ input {
     }
 
     .button-container button {
-        font-size: 12px; /* Ajusta el tamaño de los botones en móviles */
+        font-size: 14px; /* Ajusta el tamaño de los botones en móviles */
         padding: 8px 12px;
     }
 
@@ -124,13 +152,9 @@ input {
     input {
         padding: 12px; /* Asegura que los campos de entrada sean fáciles de usar en pantallas táctiles */
     }
-}
-.information{
-    color: black;
-    font-size: 18px;
-    margin: 18px;
+   
 }
 .img-fondo{
-    width: 10%;
-    height: 10%;
-}
+    width: 100%;    
+    height: 100%;
+    }
