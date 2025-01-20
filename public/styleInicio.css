@@ -1,160 +1,147 @@
+/* General Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    background-size: cover;
-    color: white;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-/* Contenedor principal */
-.container {
-    color: #ffffff;
-    text-align: center;
-    margin-top: 50px;
-    padding: 0 20px; /* Evita márgenes en pantallas pequeñas */
-}
-
-/* Título */
 h1 {
-    font-size: 60px;
-    margin-bottom: 20px;
-    background: -webkit-linear-gradient(#160505, #180f03);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Contenedor de botones */
-.button-container {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px; /* Espaciado entre botones */
-}
-
-/* Estilo de botones */
-.button-container button {
-    padding: 10px 20px;
-    font-size: 20px;
-    border-radius: 24px;
-    border: none;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilo al pasar el cursor sobre los botones */
-.button-container button:hover {
-    background-color: #7420b4;
-    transform: translateY(-3px);
-}
-
-/* Estilo para el formulario */
-#calcularForm {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #4caf50;
     margin-top: 20px;
-    text-align: left;
-    display: inline-block;
 }
 
-/* Estilo de las cajas de entrada */
-.input-box {
+p {
+    text-align: center;
     margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
 }
 
-/* Estilo de los campos de entrada */
-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Botón de Logout */
+/* Logout Button */
 .logout-button {
     position: absolute;
     top: 20px;
     right: 20px;
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
+    background-color: #e91e63;
+    color: #fff;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
 }
 
 .logout-button:hover {
-    background-color: #d32f2f;
+    background-color: #c2185b;
 }
 
-/* Estilo para información */
-.information {
-    color: white;
-    font-size: 18px;
-    margin: 18px;
-    background: rgba(255, 255, 255, 0.1);
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.button-container button {
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.button-container button:hover {
+    background-color: #1976d2;
+}
+
+.button-container i {
+    font-size: 1.2rem;
+}
+
+/* Stats Section */
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px;
+}
+
+.stat-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
 }
 
-/* Media Queries para Responsividad */
-
-/* Para pantallas de hasta 768px */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 36px; /* Reduce el tamaño del título para pantallas más pequeñas */
-    }
-
-    .button-container button {
-        font-size: 16px; /* Ajusta el tamaño de los botones */
-        padding: 8px 16px;
-    }
-
-    .container {
-        margin-top: 40px;
-    }
-
-    input {
-        padding: 10px; /* Aumenta el padding de los campos para mejorar la experiencia táctil */
-    }
+.stat-card h2 {
+    font-size: 1.8rem;
+    color: #4caf50;
+    margin: 10px 0;
 }
 
-/* Para pantallas de hasta 480px (móviles) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 28px; /* Hace que el título sea aún más pequeño en dispositivos móviles */
-    }
-
-    .button-container button {
-        font-size: 14px; /* Ajusta el tamaño de los botones en móviles */
-        padding: 8px 12px;
-    }
-
-    .container {
-        margin-top: 10px; /* Reduce el margen superior para pantallas más pequeñas */
-        padding: 0 10px; /* Agrega algo de espacio lateral */
-    }
-
-    .input-box {
-        margin: 8px 0; /* Reduce el margen en pantallas pequeñas */
-    }
-
-    input {
-        padding: 12px; /* Asegura que los campos de entrada sean fáciles de usar en pantallas táctiles */
-    }
-   
+.stat-card p {
+    font-size: 1rem;
+    color: #777;
 }
-.img-fondo{
-    width: 100%;    
-    height: 100%;
-    }
+
+/* Chart Container */
+.chart-container {
+    width: 80%;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* How-to Section */
+.how-to-container {
+    width: 80%;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.how-to-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #2196f3;
+}
+
+.how-to-container ol {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.how-to-container li {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.how-to-container li::before {
+    content: '✔️';
+    font-size: 1.2rem;
+    color: #4caf50;
+}

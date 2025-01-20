@@ -6,25 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantalla de Inicio</title>
     <link rel="stylesheet" href="styleInicio.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Librería para gráficos -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> <!-- Agrega esta línea -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Íconos -->
 </head>
 
 <body>
     <!-- Botón de salir en la parte superior derecha -->
     <button id="btnLogout" class="logout-button">Salir</button>
 
+    <!-- Contenedor principal -->
     <div class="container">
-        <h1>Pantalla de Inicio</h1>
+        <h1>GesGan</h1>
+        <p class="description">GestorGan te ayuda a calcular y almacenar las ganancias de tus productos de manera rápida y sencilla.</p>
+
+        <!-- Botones principales -->
         <div class="button-container">
-            <button id="btnCalcular" onclick="window.location.href='Calcular.html'">Calcular</button>
-            <button id="btnProductos" onclick="window.location.href='MisProductos.html'">Mis Productos</button>
-            <button id="btnGanancias" onclick="window.location.href='MisGanancias.html'">Mis Ganancias</button>
+            <button id="btnCalcular" onclick="window.location.href='Calcular.html'">
+                <i class="fas fa-calculator"></i> Calcular
+            </button>
+            <button id="btnProductos" onclick="window.location.href='MisProductos.html'">
+                <i class="fas fa-box"></i> Mis Productos
+            </button>
+            <button id="btnGanancias" onclick="window.location.href='MisGanancias.html'">
+                <i class="fas fa-chart-line"></i> Mis Ganancias
+            </button>
         </div>
     </div>
-    <!-- Carga de scripts -->
-    <script src="Inicio.js"></script>
 
+    <!-- Estadísticas rápidas -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <h2>$10,500</h2>
+            <p>Total de ganancias este mes</p>
+        </div>
+        <div class="stat-card">
+            <h2>25</h2>
+            <p>Productos registrados</p>
+        </div>
+        <div class="stat-card">
+            <h2>Producto X</h2>
+            <p>Última transacción registrada</p>
+        </div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="chart-container">
+        <canvas id="earningsChart"></canvas>
+    </div>
+
+    <!-- Sección "Cómo funciona" -->
+    <div class="how-to-container">
+        <h2>Cómo funciona</h2>
+        <ol>
+            <li>📦 Ingresa tus productos y precios.</li>
+            <li>📊 Calcula tus ganancias.</li>
+            <li>📈 Revisa tus reportes de manera rápida y visual.</li>
+        </ol>
+    </div>
+
+    <!-- Carga de scripts -->
+    <script>
+        // Gráfico de ejemplo
+        const ctx = document.getElementById('earningsChart').getContext('2d');
+        const earningsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Producto A', 'Producto B', 'Producto C', 'Producto D'],
+                datasets: [{
+                    label: 'Ganancias por Producto ($)',
+                    data: [1500, 2300, 1800, 900],
+                    backgroundColor: ['#4caf50', '#2196f3', '#ff9800', '#e91e63']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="Inicio.js"></script>
 </body>
 
 </html>
