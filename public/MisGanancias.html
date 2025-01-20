@@ -19,6 +19,7 @@
 <body>
     <div class="container">
         <h1>Mis Ganancias</h1>
+        
         <div>
             <button class="btn-volver" onclick="window.location.href='Inicio.html'">Volver</button>
         </div>
@@ -28,10 +29,12 @@
         </div>
         
     </div>
+   
+    <canvas id="grafica" style="width: 100%; height: 400px;"></canvas>
+
     <div class="container-btn">
         <button id="reiniciarGanancias" class="btn-reiniciar">Reiniciar Ganancias</button>
     </div>
-    
     
 
     <!-- Firebase Configuración -->
@@ -56,6 +59,8 @@
     <!-- Archivo JavaScript -->
     <script src="MisGanancias.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 </body>
 </html>

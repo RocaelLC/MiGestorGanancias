@@ -124,6 +124,10 @@ label {
 @media (max-width: 768px) {
     .form-container {
         padding: 15px; /* Reduce el padding en pantallas más pequeñas */
+        
+    }
+    h1{
+        text-align: center;
     }
 
     .submit-button,

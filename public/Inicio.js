@@ -23,3 +23,11 @@ logoutButton.addEventListener('click', () => {
         console.error('Error al cerrar sesión', error);
     });
 });
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+const sidebar = document.querySelector('.sidebar');
+
+// Toggle del sidebar
+hamburgerMenu.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    hamburgerMenu.classList.toggle('open');
+});

@@ -1,17 +1,35 @@
-// Obtener la referencia al contenedor del collage
+// Obtener la referencia al contenedor del collage y al contenedor de ganancias totales
 const collageContainer = document.getElementById('collage');
+const gananciasTotalesContainer = document.createElement('div'); // Crear un contenedor para mostrar las ganancias totales
 
-// Función para mostrar las ganancias en forma de collage
+// Referencia al contenedor donde se mostrará la gráfica
+const graficaContainer = document.getElementById('grafica');
+
+// Función para mostrar las ganancias en forma de collage y calcular el total
 function mostrarGanancias() {
-    // Obtener el UID del usuario actual
     const user = firebase.auth().currentUser;
 
     if (user) {
-        // Filtrar las ganancias por el UID del usuario actual
         db.collection('profits').where('uid', '==', user.uid).get()
             .then((querySnapshot) => {
+                let totalGanancias = 0; // Variable para acumular las ganancias totales
+                const productosGanancia = {}; // Objeto para almacenar las ganancias por producto
+                collageContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevas tarjetas
+
                 querySnapshot.forEach((doc) => {
                     const profitData = doc.data();
+                    const producto = profitData.productName;
+                    const ganancia = profitData.profit;
+
+                    // Acumular la ganancia de cada producto
+                    totalGanancias += ganancia;
+
+                    // Sumar las ganancias por producto
+                    if (productosGanancia[producto]) {
+                        productosGanancia[producto] += ganancia;
+                    } else {
+                        productosGanancia[producto] = ganancia;
+                    }
 
                     // Crear una tarjeta para cada ganancia
                     const profitCard = document.createElement('div');
@@ -19,16 +37,52 @@ function mostrarGanancias() {
 
                     // Contenido de la tarjeta
                     profitCard.innerHTML = `
-                        <h3>Producto: ${profitData.productName}</h3>
+                        <h3>Producto: ${producto}</h3>
                         <p>Cantidad: ${profitData.quantity}</p>
                         <p>Precio de Compra: ${profitData.purchasePrice} pesos</p>
                         <p>Precio de Venta: ${profitData.salePrice} pesos</p>
-                        <p>Ganancia: ${profitData.profit} pesos</p>
+                        <p>Ganancia: ${ganancia} pesos</p>
                         <p>Fecha: ${new Date(profitData.date.seconds * 1000).toLocaleDateString()}</p>
                     `;
 
-                    // Añadir la tarjeta al contenedor del collage
                     collageContainer.appendChild(profitCard);
+                });
+
+                // Mostrar las ganancias totales
+                gananciasTotalesContainer.innerHTML = `
+                    <div class="profit-summary">
+                        <h2>Ganancia Total: ${totalGanancias.toFixed(2)} pesos</h2>
+                    </div>
+                `;
+
+                // Asegurarse de que el contenedor de ganancias totales se agregue al final del collage
+                document.body.appendChild(gananciasTotalesContainer);  // Insertar al final de la página
+
+                // Preparar los datos para la gráfica de barras
+                const productos = Object.keys(productosGanancia);
+                const ganancias = productos.map(producto => productosGanancia[producto]);
+
+                // Crear la gráfica de barras
+                new Chart(graficaContainer, {
+                    type: 'bar',
+                    data: {
+                        labels: productos, // Etiquetas con el nombre de los productos
+                        datasets: [{
+                            label: 'Ganancia por Producto',
+                            data: ganancias, // Datos de ganancias
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        responsive: true
+                    }
                 });
             })
             .catch((error) => {

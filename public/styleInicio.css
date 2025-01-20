@@ -16,7 +16,7 @@ h1 {
 
 p {
     text-align: center;
-    margin: 10px 0;
+    margin: 10px 15px;
     font-size: 1rem;
     color: #555;
 }
@@ -43,6 +43,7 @@ p {
 .button-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
     margin: 20px 0;
 }
@@ -58,21 +59,20 @@ p {
     transition: all 0.3s;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    min-width: 150px;
 }
 
 .button-container button:hover {
     background-color: #1976d2;
 }
 
-.button-container i {
-    font-size: 1.2rem;
-}
-
 /* Stats Section */
 .stats-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
     margin: 20px;
 }
@@ -100,8 +100,8 @@ p {
 
 /* Chart Container */
 .chart-container {
-    width: 80%;
-    margin: 30px auto;
+    width: 90%;
+    margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -110,8 +110,8 @@ p {
 
 /* How-to Section */
 .how-to-container {
-    width: 80%;
-    margin: 30px auto;
+    width: 90%;
+    margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -138,10 +138,153 @@ p {
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: center;
 }
 
 .how-to-container li::before {
     content: '✔️';
     font-size: 1.2rem;
     color: #4caf50;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        margin-top: 10px;
+    }
+
+    .logout-button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    .button-container button {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+        min-width: 120px;
+    }
+
+    .stat-card {
+        width: 100%;
+    }
+
+    .chart-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .how-to-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .how-to-container h2 {
+        font-size: 1.5rem;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .logout-button {
+        top: 10px;
+        right: 10px;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button-container button {
+        font-size: 0.8rem;
+        padding: 10px 12px;
+    }
+
+    .stat-card {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    .chart-container {
+        padding: 10px;
+    }
+
+    .how-to-container {
+        padding: 10px;
+    }
+
+    .how-to-container h2 {
+        font-size: 1.2rem;
+    }
+
+    .how-to-container li {
+        font-size: 0.9rem;
+    }
+   
+}
+/* Hamburger Menu */
+.hamburger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    height: 100%;
+    width: 250px;
+    background-color: #4caf4f5d;
+    box-shadow: 2px 0 5px rgba(32, 32, 32, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px;
+    transition: 0.3s;
+    z-index: 999;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar button {
+    background-color: #fffffff5;
+    color: #4caf50;
+    border: none;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+}
+
+.sidebar button:hover {
+    background-color: #f1f1f1;
 }
