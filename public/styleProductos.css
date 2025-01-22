@@ -82,6 +82,39 @@
     color: #28a745;
     font-size: 50px;
 }
+.stock-input {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-descuento {
+    background-color: #f8c300;
+    margin: 6px;
+    color: white;
+    padding: 5px 13px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-descuento:hover {
+    background-color: #f5a500;
+}
+.cantidad-input {
+    text-align: center;
+    margin: 12px;
+    width: 70px;  /* Ajusta el ancho del input */
+    padding: 8px;  /* Ajusta el relleno dentro del input */
+    font-size: 9px;  /* Cambia el tamaño de la fuente */
+    border-radius: 5px;  /* Bordes redondeados */
+    border: 1px solid #ccc;  /* Color del borde */
+}
+
+
 
 /* Aseguramos que en pantallas pequeñas los elementos se alineen mejor */
 @media (max-width: 768px) {

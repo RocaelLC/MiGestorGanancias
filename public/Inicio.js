@@ -21,7 +21,7 @@ const sidebar = document.querySelector('.sidebar');
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         // Si el usuario está autenticado, mostrar el mensaje de bienvenida con su nombre
-        welcomeMessage.textContent = `Bienvenido, ${user.displayName || 'Usuario'}`;
+        welcomeMessage.textContent = `Bienvenido `;
     } else {
         // Si no está autenticado, redirigir al login
         window.location.href = 'index.html';  // Cambia a tu página de login
@@ -53,5 +53,15 @@ document.addEventListener('click', (event) => {
     if (!isClickInsideSidebar && !isClickInsideHamburger) {
         sidebar.classList.remove('open');
         hamburgerMenu.classList.remove('open');
+    }
+});
+
+firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+        // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+        window.location.href = "index.html";
+    } else {
+        // El usuario está autenticado, muestra el contenido de la página principal
+        console.log("Bienvenido", user.email);
     }
 });

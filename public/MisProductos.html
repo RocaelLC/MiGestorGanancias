@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <title> Mis Productos </title>
     <link rel="stylesheet" href="styleProductos.css">
 
@@ -17,17 +18,7 @@
 </head>
 <body>
     <body>
-        <script>
-        firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
-                // Si el usuario no está autenticado, redirige a la página de inicio de sesión
-                window.location.href = "index.html";
-            } else {
-                // El usuario está autenticado, muestra el contenido de la página principal
-                console.log("Bienvenido", user.email);
-            }
-        });
-    </script>
+        
     <div>
        
         <h1 id="title">Mis Productos</h1>
@@ -41,6 +32,7 @@
                 <input type="text" id="productName" placeholder="Nombre del producto" required>
                 <input type="number" id="productPrice" placeholder="Precio del producto" required>
                 <input type="number" id="stock" placeholder="stock" required>
+                
             
                 <!-- Input oculto para subir la imagen -->
                 <input type="file" id="productImage" accept="image/*" required>
@@ -59,5 +51,6 @@
         </div>
     </div>
     <script src="MisProductos.js"></script>
+    
 </body>
 </html>

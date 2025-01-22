@@ -157,14 +157,14 @@ function reiniciarGanancias() {
 
                     // Confirmar eliminación
                     return batch.commit().then(() => {
-                        
                         Swal.fire({
                             title: 'Ganancias reiniciadas',
                             text: 'Se ha generado un informe y reiniciado las ganancias.',
                             icon: 'success',
+                        }).then(() => {
+                            // Refrescar la visualización de ganancias
+                            mostrarGanancias(); // Llamar de nuevo a la función para recargar el collage y gráfica
                         });
-                        mostrarGanancias(); 
-                        
                     });
                 } else {
                     Swal.fire({
@@ -193,3 +193,13 @@ function reiniciarGanancias() {
 
 // Vincular evento al botón
 reiniciarBtn.addEventListener('click', reiniciarGanancias);
+
+firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+        // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+        window.location.href = "index.html";
+    } else {
+        // El usuario está autenticado, muestra el contenido de la página principal
+        console.log("Bienvenido", user.email);
+    }
+});

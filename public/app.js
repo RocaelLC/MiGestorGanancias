@@ -32,6 +32,7 @@ loginForm.addEventListener("submit", (e) => {
       console.error("Error en el inicio de sesión:", error.message);
       alert("Error: " + error.message);  // Mostrar el error al usuario
     });
+    
 });
 
 // Verificar autenticación y redirigir si es necesario
