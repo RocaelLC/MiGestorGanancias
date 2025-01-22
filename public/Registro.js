@@ -21,9 +21,14 @@ registerForm.addEventListener('submit', (e) => {
     // Obtener valores de los campos
     const email = document.getElementById('emailRegister').value;
     const password = document.getElementById('passwordRegister').value;
+    const name = document.getElementById('name').value;
+    const apellido = document.getElementById('apellido').value;
+    const user = document.getElementById('user').value;
+
+
 
     // Crear usuario con Firebase Authentication
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(email, password,name,apellido,user)
         .then((userCredential) => {
             // Registro exitoso
             const user = userCredential.user;

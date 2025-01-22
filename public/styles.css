@@ -7,11 +7,12 @@
 
 body, html {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 /* Fondo de pantalla */
 body {
+    background: linear-gradient(135deg, #28a745, #3b4249);
     background-size: cover;
     background-position: center;
     display: flex;
@@ -26,18 +27,25 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding: 50px;
+    padding: 20px;
 }
 
 /* Caja de login */
 .login-box {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
     text-align: center;
     width: 100%;
-    max-width: 900px; /* Limita el ancho máximo de la caja */
+    max-width: 400px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* Título */
@@ -45,94 +53,79 @@ h2 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
-    color: black;
+    color: #4caf50;
 }
 
 /* Contenedor de los campos de entrada */
 .input-box {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 /* Estilos de los inputs */
 .input-box input {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #0f0f0f79;
-    border-radius: 5px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
     outline: none;
-    background: none;
-    transition: 0.3s;
+    background: #f9f9f9;
     font-size: 16px;
+    transition: 0.3s;
+    color: #333;
 }
 
 .input-box input:focus {
-    border-color: #007BFF;
+    border-color: #007bff;
+    background: #fff;
 }
 
-/* Estilos de las etiquetas de los inputs */
-.input-box label {
-    position: absolute;
-    top: 12px;
-    left: 10px;
-    pointer-events: none;
-    transition: 0.3s;
-    font-size: 16px;
+/* Estilos del placeholder */
+.input-box input::placeholder {
     color: #aaa;
+    font-style: italic;
 }
 
-/* Efecto de animación en el label cuando el input está en foco o no está vacío */
-.input-box input:focus + label,
-.input-box input:not(:placeholder-shown) + label {
-    top: -10px;
-    font-size: 12px;
-    color: #007BFF;
-}
-
-/* Contenedor de los botones */
+/* Botones */
 .button-box {
     display: flex;
-    justify-content: center;
-    gap: 20px; /* Espacio entre los botones */
+    justify-content: space-between;
+    gap: 10px;
     margin-top: 20px;
 }
 
-/* Estilos generales de los botones */
+/* Botones de acción */
 button {
     padding: 12px 20px;
     border: none;
-    background-color: #007BFF;
+    background: #28a745;
     color: white;
-    border-radius: 20px;
+    border-radius: 8px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
+    width: 48%;
+    transition: all 0.3s;
 }
 
-/* Efecto hover para los botones */
 button:hover {
-    background-color: #3b4249;
+    background: #218838;
+    transform: scale(1.05);
 }
 
-/* Media Queries para la responsividad */
-
-/* Para pantallas más pequeñas (móviles) */
+/* Responsividad */
 @media (max-width: 768px) {
     .login-box {
-        padding: 30px 20px; /* Reduce el padding en pantallas más pequeñas */
-        width: 80%; /* Aumenta el ancho para pantallas más pequeñas */
+        padding: 30px 20px;
+        max-width: 90%;
     }
 
     h2 {
-        font-size: 20px; /* Reduce el tamaño de la fuente del título */
-    }
-
-    .input-box input {
-        font-size: 14px; /* Ajusta el tamaño de la fuente de los inputs */
+        font-size: 20px;
     }
 
     button {
-        font-size: 14px; /* Ajusta el tamaño de la fuente de los botones */
-        padding: 10px 18px; /* Ajusta el padding de los botones */
+        font-size: 14px;
+        padding: 10px;
     }
 }

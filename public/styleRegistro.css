@@ -1,92 +1,134 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    background-size: cover; /* Ajusta la imagen de fondo para cubrir toda la pantalla */
+/* Reseteo de márgenes y paddings */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Fondo del sitio */
+body {
+    background: linear-gradient(135deg, #28a745, #3b4249);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
 }
 
 /* Contenedor principal */
 .container {
-    text-align: center;
-    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
 }
 
 /* Caja de registro */
 .register-box {
-    background-color: rgba(255, 255, 255, 0.904);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 40px 30px;
-    border-radius: 10px;
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
     text-align: center;
-    width: 90%;
-    max-width: 350px; /* Limita el tamaño en pantallas grandes */
-    margin: auto;
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilos de los campos de entrada */
+.register-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Título */
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Contenedor de los campos de entrada */
+.input-box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+/* Estilo de los inputs */
 .input-box input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    background: #f9f9f9;
     font-size: 16px;
+    transition: 0.3s;
+    color: #333;
 }
 
-/* Estilos del contenedor de botones */
+.input-box input:focus {
+    border-color: #28a745;
+    background: #fff;
+}
+
+/* Estilos del placeholder */
+.input-box input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Botones */
 .button-box {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-/* Estilos del botón de registro */
-.button-box button {
-    padding: 10px 20px;
+/* Botones de acción */
+button {
+    padding: 12px 20px;
     border: none;
-    background-color: #007BFF;
+    background: #28a745;
     color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 8px;
     font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 48%;
+    transition: all 0.3s;
+}
+.swal2-confirm{
+    margin: 26px;
 }
 
-.button-box button:hover {
-    background-color: #3b4249;
+button:hover {
+    background: #218838;
+    transform: scale(1.05);
 }
 
-/* Media Queries para hacer la pantalla de registro responsiva */
-
-/* Para pantallas de hasta 768px */
+/* Responsividad */
 @media (max-width: 768px) {
     .register-box {
-        padding: 30px 20px; /* Reduce el padding en pantallas más pequeñas */
+        padding: 30px 20px;
+        max-width: 90%;
     }
 
-    .button-box button {
-        font-size: 14px; /* Ajusta el tamaño de la fuente del botón */
+    h2 {
+        font-size: 20px;
     }
 
-    .input-box input {
-        font-size: 14px; /* Ajusta el tamaño de la fuente en los campos de entrada */
-    }
-}
-
-/* Para pantallas de hasta 480px (móviles) */
-@media (max-width: 480px) {
-    .register-box {
-        padding: 20px 15px; /* Ajusta el padding aún más para móviles */
-        width: 80%; /* Hace que el formulario ocupe más espacio en pantallas móviles */
-    }
-
-    .button-box button {
-        padding: 12px 20px; /* Ajusta el padding del botón */
-        font-size: 14px; /* Ajusta el tamaño de la fuente en dispositivos móviles */
-    }
-
-    .input-box input {
-        font-size: 12px; /* Ajusta el tamaño de la fuente en los campos de entrada */
-        width: 80%;
+    button {
+        font-size: 14px;
+        padding: 10px;
     }
 }

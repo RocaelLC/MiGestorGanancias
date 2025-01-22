@@ -31,6 +31,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
 
     const name = document.getElementById('productName').value;
     const price = document.getElementById('productPrice').value;
+    const stock = document.getElementById('stock').value;
     const imageFile = document.getElementById('productImage').files[0]; // Obtiene el archivo de imagen
 
     if (!imageFile) {
@@ -56,6 +57,7 @@ document.getElementById('productForm').addEventListener('submit', async (e) => {
             name: name,
             price: price,
             image: imageUrl,
+            stock: stock,
             userId: firebase.auth().currentUser.uid // Guarda el ID del usuario
         });
 
@@ -94,9 +96,10 @@ async function loadProducts() {
         card.innerHTML = `
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
-            
             <p>Precio: ${product.price} pesos</p>
+            <p>Stock: ${product.stock}</p>
             <button class="btn-eliminar" data-id="${doc.id}">Eliminar</button> <!-- Botón de eliminar -->
+            
         `;
 
         productsList.appendChild(card);
