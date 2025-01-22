@@ -214,9 +214,10 @@ async function discountStock(e) {
 
         Swal.fire({
             title: 'Éxito',
-            text: `Se ha descontado ${cantidad} unidades del producto`,
+            text: `Se ha descontado ${cantidad} unidades del producto ${product.name}. Nuevo stock: ${newStock}` ,
             icon: 'success'
         });
+        
 
         loadProducts(); // Recarga los productos para ver los cambios
     } catch (error) {
