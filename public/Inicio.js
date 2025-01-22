@@ -6,28 +6,52 @@ const firebaseConfig = {
     storageBucket: "migestor-fc269.appspot.com",
     messagingSenderId: "901999644556",
     appId: "1:901999644556:web:d39a8aebd3a22069ca10a9"
-    
-  };
-  
-  // Inicializar Firebase
-  firebase.initializeApp(firebaseConfig);
-// Seleccionamos el botón de salir
-const logoutButton = document.getElementById('btnLogout');
+};
 
-// Añadimos el evento para cerrar sesión
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Referencia a los elementos
+const welcomeMessage = document.querySelector('.welcome');
+const logoutButton = document.getElementById('btnLogout');
+const hamburgerMenu = document.querySelector('.hamburger-menu');
+const sidebar = document.querySelector('.sidebar');
+
+// Mostrar el nombre del usuario cuando inicie sesión
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // Si el usuario está autenticado, mostrar el mensaje de bienvenida con su nombre
+        welcomeMessage.textContent = `Bienvenido, ${user.displayName || 'Usuario'}`;
+    } else {
+        // Si no está autenticado, redirigir al login
+        window.location.href = 'index.html';  // Cambia a tu página de login
+    }
+});
+
+// Cerrar sesión
 logoutButton.addEventListener('click', () => {
     firebase.auth().signOut().then(() => {
         // Redirigir al usuario a la página de login después de cerrar sesión
-        window.location.href = 'index.html';  // Cambia 'login.html' a la ruta correcta de tu página de login
+        window.location.href = 'index.html';  // Cambia a tu página de login
     }).catch((error) => {
         console.error('Error al cerrar sesión', error);
     });
 });
-const hamburgerMenu = document.querySelector('.hamburger-menu');
-const sidebar = document.querySelector('.sidebar');
 
-// Toggle del sidebar
+// Toggle del sidebar al hacer clic en el menú hamburguesa
 hamburgerMenu.addEventListener('click', () => {
     sidebar.classList.toggle('open');
     hamburgerMenu.classList.toggle('open');
+});
+
+// Cerrar el sidebar al hacer clic fuera de él
+document.addEventListener('click', (event) => {
+    const isClickInsideSidebar = sidebar.contains(event.target);
+    const isClickInsideHamburger = hamburgerMenu.contains(event.target);
+
+    // Si el clic no fue dentro del sidebar ni del botón del menú, cierra el sidebar
+    if (!isClickInsideSidebar && !isClickInsideHamburger) {
+        sidebar.classList.remove('open');
+        hamburgerMenu.classList.remove('open');
+    }
 });

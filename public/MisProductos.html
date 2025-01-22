@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Productos</title>
+    <title> Mis Productos </title>
     <link rel="stylesheet" href="styleProductos.css">
 
     <!-- Importa Firebase App y Firestore -->
@@ -16,12 +16,26 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
+    <body>
+        <script>
+        firebase.auth().onAuthStateChanged(user => {
+            if (!user) {
+                // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+                window.location.href = "index.html";
+            } else {
+                // El usuario está autenticado, muestra el contenido de la página principal
+                console.log("Bienvenido", user.email);
+            }
+        });
+    </script>
     <div>
+       
         <h1 id="title">Mis Productos</h1>
         <div>
             <button class="btn-volver" onclick="window.location.href='Inicio.html'">Volver</button>
         </div>
         <div>
+            <h1 class="title"> Mis Productos</h1>
             <h2 id="sub-title">Agregar Producto</h2>
             <form id="productForm">
                 <input type="text" id="productName" placeholder="Nombre del producto" required>

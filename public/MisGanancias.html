@@ -17,6 +17,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
+    <body>
+        <script>
+        firebase.auth().onAuthStateChanged(user => {
+            if (!user) {
+                // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+                window.location.href = "index.html";
+            } else {
+                // El usuario está autenticado, muestra el contenido de la página principal
+                console.log("Bienvenido", user.email);
+            }
+        });
+    </script>
     <div class="container">
         <h1>Mis Ganancias</h1>
         

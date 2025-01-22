@@ -9,10 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Librería para gráficos -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Íconos -->
 </head>
 
 <body>
+    <script>
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) {
+            // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+            window.location.href = "index.html";
+        } else {
+            // El usuario está autenticado, muestra el contenido de la página principal
+            console.log("Bienvenido", user.email);
+        }
+    });
+</script>
     <!-- Botón de salir en la parte superior derecha -->
     <button id="btnLogout" class="logout-button">Salir</button>
 
@@ -20,26 +32,25 @@
     <div class="container">
         <h1>GesGan</h1>
         <p class="description">GestorGan te ayuda a calcular y almacenar las ganancias de tus productos de manera rápida y sencilla.</p>
-
-        
-        </div>
-        
     </div>
-<div>
-    <!-- Botón de menú hamburguesa -->
-<div class="hamburger-menu">
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
 
-<!-- Menú lateral -->
-<div class="sidebar" id="sidebar">
-    <button id="btnCalcular" onclick="window.location.href='Calcular.html'">Calcular</button>
-    <button id="btnProductos" onclick="window.location.href='MisProductos.html'">Mis Productos</button>
-    <button id="btnGanancias" onclick="window.location.href='MisGanancias.html'">Mis Ganancias</button>
-</div>
-</div>
+    <!-- Botón de menú hamburguesa -->
+    <div class="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Menú lateral -->
+    <div class="sidebar" id="sidebar">
+        <!-- Mensaje de bienvenida -->
+        <h2 id="sidebarWelcome">Bienvenido</h2>
+
+        <button id="btnCalcular" onclick="window.location.href='Calcular.html'">Calcular</button>
+        <button id="btnProductos" onclick="window.location.href='MisProductos.html'">Mis Productos</button>
+        <button id="btnGanancias" onclick="window.location.href='MisGanancias.html'">Mis Ganancias</button>
+    </div>
+
     <!-- Estadísticas rápidas -->
     <div class="stats-container">
         <div class="stat-card">
@@ -95,7 +106,7 @@
             }
         });
     </script>
-    <script src="Inicio.js"></script>
+    <script  src="Inicio.js"></script>
 </body>
 
 </html>
