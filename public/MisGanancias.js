@@ -43,7 +43,72 @@ function mostrarGanancias() {
                         <p>Precio de Venta: ${profitData.salePrice} pesos</p>
                         <p>Ganancia: ${ganancia} pesos</p>
                         <p>Fecha: ${new Date(profitData.date.seconds * 1000).toLocaleDateString()}</p>
+                        <button class="btn-volver">Editar</button>
                     `;
+
+                    // Agregar evento de clic para editar
+                    
+                    profitCard.addEventListener('click', () => {
+                        Swal.fire({
+                            title: 'Editar Ganancia',
+                            html: `
+                                <label for="producto">Producto:</label>
+                                <input id="producto" class="swal2-input" value="${producto}">
+                                <label for="cantidad">Cantidad:</label>
+                                <input id="cantidad" type="number" class="swal2-input" value="${profitData.quantity}">
+                                <label for="precioCompra">Precio de Compra:</label>
+                                <input id="precioCompra" type="number" class="swal2-input" value="${profitData.purchasePrice}">
+                                <label for="precioVenta">Precio de Venta:</label>
+                                <input id="precioVenta" type="number" class="swal2-input" value="${profitData.salePrice}">
+                        
+                                `,
+                            showCancelButton: true,
+                            confirmButtonText: 'Guardar',
+                            cancelButtonText: 'Cancelar',
+                            preConfirm: () => {
+                                const producto = document.getElementById('producto').value;
+                                const cantidad = parseFloat(document.getElementById('cantidad').value);
+                                const precioCompra = parseFloat(document.getElementById('precioCompra').value);
+                                const precioVenta = parseFloat(document.getElementById('precioVenta').value);
+                                const ganancia = cantidad * (precioVenta - precioCompra);
+
+                                if (!producto || isNaN(cantidad) || isNaN(precioCompra) || isNaN(precioVenta)) {
+                                    Swal.showValidationMessage('Por favor, completa todos los campos correctamente.');
+                                    return;
+                                }
+
+                                return { producto, cantidad, precioCompra, precioVenta, ganancia };
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                const { producto, cantidad, precioCompra, precioVenta, ganancia } = result.value;
+
+                                // Actualizar en Firebase
+                                db.collection('profits').doc(doc.id).update({
+                                    productName: producto,
+                                    quantity: cantidad,
+                                    purchasePrice: precioCompra,
+                                    salePrice: precioVenta,
+                                    profit: ganancia
+                                }).then(() => {
+                                    Swal.fire({
+                                        title: 'Éxito',
+                                        text: 'La ganancia se actualizó correctamente.',
+                                        icon: 'success'
+                                    });
+                                    // Volver a mostrar las ganancias para reflejar los cambios
+                                    mostrarGanancias();
+                                }).catch((error) => {
+                                    console.error("Error al actualizar la ganancia: ", error);
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: 'Hubo un problema al actualizar la ganancia.',
+                                        icon: 'error'
+                                    });
+                                });
+                            }
+                        });
+                    });
 
                     collageContainer.appendChild(profitCard);
                 });
@@ -96,6 +161,7 @@ function mostrarGanancias() {
         });
     }
 }
+
 
 // Ejecutar la función al cargar la página
 firebase.auth().onAuthStateChanged((user) => {

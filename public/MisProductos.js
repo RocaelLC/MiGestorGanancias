@@ -228,7 +228,7 @@ async function discountStock(e) {
             icon: 'error'
         });
     }
-}
+} 
 // Función para reañadir stock
 async function reAddStock(e) {
     const productId = e.target.dataset.id;
