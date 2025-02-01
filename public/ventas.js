@@ -102,6 +102,7 @@ function agregarAlCarrito(id) {
     actualizarCarrito();
     document.getElementById(`cantidad-${id}`).innerText = "0";
 }
+//actualizar carrito
 function actualizarCarrito() {
     const tbody = document.getElementById("cart-items");
     tbody.innerHTML = "";
@@ -128,7 +129,20 @@ function actualizarCarrito() {
     tbody.appendChild(trTotal);
 }
 
-// Función para finalizar la venta y guardarla en Firestore
+// Función para generar ticket y mostrarlo en la interfaz
+function generarTicket(venta) {
+    let ticketHTML = `<h3>TICKET DE VENTA</h3>`;
+    ticketHTML += `<p>Fecha: ${new Date(venta.fecha).toLocaleString()}</p>`;
+    ticketHTML += `<table border='1'><tr><th>Producto</th><th>Cantidad</th><th>Subtotal</th></tr>`;
+    venta.items.forEach(item => {
+        ticketHTML += `<tr><td>${item.name}</td><td>${item.cantidad}</td><td>${item.subtotal} pesos</td></tr>`;
+    });
+    ticketHTML += `</table><p><strong>Total: ${venta.total} pesos</strong></p>`;
+    
+    document.getElementById("ticket-container").innerHTML = ticketHTML;
+}
+
+// Función para finalizar la venta y guardar en Firebase
 const finalizarVentaBtn = document.getElementById("finalize-sale");
 if (finalizarVentaBtn) {
     finalizarVentaBtn.addEventListener("click", () => {
@@ -140,7 +154,7 @@ if (finalizarVentaBtn) {
         const batch = db.batch();
         const ventaRef = db.collection("ventas").doc();
         const venta = {
-            fecha: new Date(),
+            fecha: new Date().toISOString(), // Guardar la fecha y hora
             total: carrito.reduce((acc, item) => acc + item.price * item.cantidad, 0),
             items: carrito.map(item => ({
                 id: item.id,
@@ -158,6 +172,7 @@ if (finalizarVentaBtn) {
         });
 
         batch.commit().then(() => {
+            generarTicket(venta); // Muestra el botón "Ver Ticket"
             carrito.length = 0;
             actualizarCarrito();
             Swal.fire('Éxito', 'Venta finalizada con éxito.', 'success');
@@ -169,9 +184,54 @@ if (finalizarVentaBtn) {
 }
 
 
+
 // Función para eliminar productos del carrito
 function eliminarDelCarrito(index) {
     carrito.splice(index, 1);
     actualizarCarrito();
 }
 
+// Función para generar y mostrar el botón "Ver Ticket"
+function generarTicket(venta) {
+    const ticketContainer = document.getElementById("ticket-container");
+    ticketContainer.innerHTML = ""; // Limpiar el contenedor
+
+    // Crear el botón "Ver Ticket"
+    const botonVer = document.createElement("button");
+    botonVer.innerText = "Ver Ticket";
+    botonVer.classList.add("ticket-button");
+    botonVer.onclick = () => generarPDF(venta); // Asigna la función para generar PDF
+
+    ticketContainer.appendChild(botonVer);
+}
+
+// Función para generar el PDF del ticket
+function generarPDF(venta) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Fecha y hora de la venta
+    const fechaVenta = new Date(venta.fecha);
+    const fechaTexto = fechaVenta.toLocaleDateString();
+    const horaTexto = fechaVenta.toLocaleTimeString();
+
+    doc.setFont("helvetica", "bold");
+    doc.text("TICKET DE VENTA", 80, 10);
+    
+    doc.setFont("helvetica", "normal");
+    doc.text(`Fecha: ${fechaTexto}`, 10, 20);
+    doc.text(`Hora: ${horaTexto}`, 10, 30);
+    
+    doc.text("Productos:", 10, 40);
+    
+    let y = 50; // Posición inicial
+    venta.items.forEach((item, index) => {
+        doc.text(`${index + 1}. ${item.name} - Cantidad: ${item.cantidad} - Subtotal: $${item.subtotal}`, 10, y);
+        y += 10;
+    });
+
+    doc.text(`Total: $${venta.total}`, 10, y + 10);
+
+    // Guardar y mostrar el PDF
+    doc.save(`Ticket_Venta_${fechaTexto}.pdf`);
+}
