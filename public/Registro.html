@@ -18,7 +18,7 @@
                 <!-- Campo para correo electrónico -->
                 <div class="input-box">
                     <input type="email" placeholder="Correo Electrónico" id="emailRegister" required>
-                    
+
                 </div>
                 <div class="input-box">
                     <input type="text" placeholder="Nombre" id="name">
@@ -33,6 +33,13 @@
                 <div class="input-box">
                     <input type="password" placeholder="Crear Contraseña" id="passwordRegister" required>
                 </div>
+                <label for="role">Rol:</label>
+               
+                <select id="role">
+                    <option value="dueño">Dueño</option>
+                    <option value="empleado">Empleado</option>
+                </select>
+
                 <!-- Botones de acción -->
                 <div class="button-box">
                     <button type="button" onclick="window.location.href='index.html'">Cancelar</button>
@@ -46,7 +53,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <!-- Incluye el archivo firebase.js para gestionar el registro -->
-    <script type="module" src="Registro.js"></script>
+    <script  type="module" src="Registro.js"></script>
     <script type="module" src=firebase.js></script>
 </body>
 

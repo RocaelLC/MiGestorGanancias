@@ -1,169 +1,118 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
     color: #4caf50;
 }
 
-/* Contenedor general */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+/* Botones */
+ .btn-reiniciar {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-/* Estilo del título */
-h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5rem; /* Tamaño de fuente ajustado para pantallas más pequeñas */
+ .btn-reiniciar:hover {
+    background-color: #f44336;
 }
 
-/* Contenedor de las tarjetas */
+.container-btn {
+    margin-top: 20px;
+}
+
+/* Contenedor del collage */
 .collage-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-/* Estilo de las tarjetas */
 .profit-card {
-    background-color: #75bd85;
-    font-family: Arial, sans-serif;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(243, 243, 243, 0.952);
-    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     width: 250px;
     text-align: center;
-    transition: transform 0.3s ease;
 }
 
 .profit-card h3 {
+    text-align: center;
+    color: #000408;
     margin-bottom: 10px;
-    color: #000000;
 }
 
 .profit-card p {
+    text-align: center;
     margin: 5px 0;
-    color: #f0ecec;
+    font-size: 14px;
+    color: #555;
 }
 
-/* Botón Volver */
-.btn-volver {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #f44336;
+.profit-card button {
+    background-color: #28a745;
     color: white;
+    padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-.btn-volver:hover {
-    background-color: #641e1e;
+.profit-card button:hover {
+    background-color: #3da555;
 }
 
-/* Media Queries para Diseño Responsivo */
-
-/* Para pantallas medianas y pequeñas */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2rem; /* Reducir el tamaño de la fuente del título */
-    }
-
-    .collage-container {
-        gap: 15px;
-    }
-
-    .profit-card {
-        width: 90%; /* Las tarjetas ocupan el 100% en pantallas más pequeñas */
-        max-width: 200px; /* Máximo tamaño de tarjeta */
-    }
-
-    .btn-volver {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-top: 5px;
-    }
-}
-
-/* Para pantallas muy pequeñas (móviles) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5rem; /* Más pequeño para adaptarse a pantallas móviles */
-    }
-
-    .profit-card {
-        width: 90%; /* Las tarjetas ocupan todo el ancho disponible */
-        max-width: 70%; /* Evita que las tarjetas sean demasiado grandes */
-    }
-
-    .collage-container {
-        flex-direction: column;
-        align-items: center; /* Centra las tarjetas */
-    }
-
-    .btn-volver {
-        width: 50%; /* El botón "Volver" ocupa el 100% del ancho */
-        padding: 12px 0; /* Ajusta el padding del botón */
-        left: 1PX;
-        margin: 20px;
-    }
-}
+/* Contenedor de ganancias totales */
 .profit-summary {
     margin-top: 20px;
     padding: 15px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.container-btn {
-    display: flex;
-    justify-content: center;  /* Centra el contenido horizontalmente */
-    align-items: center;      /* Centra el contenido verticalmente */
-    height: 100px;            /* Ocupa el 100% de la altura de la pantalla */
-    margin-top: 20px;         /* Puedes ajustar el margen superior si es necesario */
+    background: #2fb3459c;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.btn-reiniciar {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 5px;
+/* Estilos para la gráfica */
+#grafica {
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+/* Estilo para el icono de retroceso */
+.back-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px; /* Ajusta el tamaño */
+    color: #f44336; /* Color rojo */
     cursor: pointer;
-    margin-top: 20px;
+    z-index: 10;
 }
 
-.btn-reiniciar:hover {
-    background-color: #9e1414;
-}
-.container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-#excel-files-container {
-    margin-top: 40px;
-    
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#excel-files-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#excel-files-list li {
-    margin-bottom: 10px;
+.back-icon:hover {
+    color: #d32f2f; /* Color al pasar el mouse */
 }

@@ -106,8 +106,8 @@ async function loadProducts() {
             <p>Stock: ${product.stock}</p>
             <button class="btn-eliminar" data-id="${doc.id}">Eliminar</button>
             <input type="number" id="cantidad-${doc.id}"  class="cantidad-input" placeholder="Vendido hoy" min="1">
-            <input type="number" id="cantidad-add-${doc.id}" class="cantidad-input" placeholder="Añadir stock" min="1">
-            <button class="btn-descuento" data-id="${doc.id}">Descontar Stock</button>
+             <button class="btn-descuento" data-id="${doc.id}">Descontar Stock</button>
+            <input type="number" id="cantidad-add-${doc.id}" class="cantidad-input2" placeholder="Añadir stock" min="1">
             <button class="btn-add-stock" data-id="${doc.id}">Reañadir Stock</button>
         `;
 

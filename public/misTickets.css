@@ -1,0 +1,181 @@
+/* Resetear márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo general para el body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título principal */
+h1.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #28a745;
+}
+
+/* Botón de Volver */
+.btn-volver {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.btn-volver:hover {
+    background-color: #005bb5;
+}
+
+/* Estilo del contenedor de tickets */
+#tickets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Estilos para los tickets */
+.ticket {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.ticket:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Información del ticket */
+.ticket-info {
+    flex: 1;
+}
+
+.ticket-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0077cc;
+    margin-bottom: 5px;
+}
+
+.ticket-details {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Separación de fecha y hora */
+.ticket-date {
+    font-size: 0.9rem;
+    color: #777;
+    display: flex;
+    gap: 10px;
+}
+
+/* Contenedor de botones */
+.ticket-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ticket-actions button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ticket-actions button:hover {
+    background-color: #218838;
+}
+
+.ticket-actions .btn-download {
+    background-color: #007bff;
+}
+
+.ticket-actions .btn-download:hover {
+    background-color: #0069d9;
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    h1.title {
+        font-size: 1.5rem;
+    }
+    .ticket {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+    .ticket-actions {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1.title {
+        font-size: 1.2rem;
+    }
+    .ticket-header {
+        font-size: 1rem;
+    }
+    .ticket-details {
+        font-size: 0.95rem;
+    }
+    .ticket-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .ticket-actions button {
+        width: 100%;
+    }
+}
+/* Estilo para el icono de retroceso */
+.back-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px; /* Ajusta el tamaño */
+    color: #f44336; /* Color rojo */
+    cursor: pointer;
+    z-index: 10;
+}
+
+.back-icon:hover {
+    color: #d32f2f; /* Color al pasar el mouse */
+}

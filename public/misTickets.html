@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Ventas de Productos</title>
-    <link rel="stylesheet" href="ventas.css">
+    <title>Historial de Tickets</title>
+    <link rel="stylesheet" href="misTickets.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <!-- Scripts externos -->
@@ -18,37 +18,39 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js" defer></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Archivo JS Principal -->
-    <script src="ventas.js" defer></script>
-
+    <!-- Script de manejo de tickets -->
+    <script src="misTickets.js" defer></script>
 </head>
 
 <body>
-    <h1 class="title">Registrar venta</h1>
+    <!-- Encabezado principal -->
+    <header>
+        <h1 class="title">Historial de Tickets</h1>
+    </header>
     <span class="back-icon fas fa-arrow-left" onclick="goBack()"></span>
 
+    <select id="filtro-mes">
+        <option value="">Seleccione un mes</option>
+        <option value="01">Enero</option>
+        <option value="02">Febrero</option>
+        <option value="03">Marzo</option>
+        <option value="04">Abril</option>
+        <option value="05">Mayo</option>
+        <option value="06">Junio</option>
+        <option value="07">Julio</option>
+        <option value="08">Agosto</option>
+        <option value="09">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+    </select>
+    
+   
 
-    <!-- Campo de búsqueda -->
-    <input type="text" id="search-bar" placeholder="Buscar productos...">
-
-    <!-- Lista de productos -->
-    <div class="product-container" id="product-list"></div>
-
-    <!-- Icono de carrito en la parte superior derecha -->
-    <div id="cart-icon" class="cart-icon">
-        <img src="https://img.icons8.com/ios-filled/50/000000/shopping-cart.png" alt="Carrito">
-        <span id="cart-count">0</span>
-    </div>
-
-    <!-- Carrito desplegable al hacer hover -->
-    <div id="cart-popup" class="cart-popup">
-        <div id="cart-items"></div>
-
-        <button id="finalize-sale">Finalizar Venta</button>
-    </div>
-
-    <div id="ticket-container"></div>
+    <!-- Lista de tickets -->
+    <main id="tickets-list">
+        <!-- Aquí se generarán los tickets dinámicamente -->
+    </main>
 </body>
 
 </html>

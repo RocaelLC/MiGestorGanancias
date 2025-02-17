@@ -29,10 +29,14 @@
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta la cantidad de columnas según el tamaño de la pantalla */
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en PC */
     gap: 16px; /* Espacio entre los productos */
     padding: 20px; /* Relleno alrededor de la grid */
+    justify-content: center; /* Centra la grid en pantallas grandes */
+    max-width: 800px; /* Limita el ancho de la grid para centrarla */
+    margin: 0 auto; /* Centra la grid horizontalmente */
 }
+
 
 .product-card {
     border: 1px solid #ccc;
@@ -91,7 +95,11 @@
     text-align: center;
 }
 
+   
+
+
 .btn-descuento {
+    text-align: center;
     background-color: #f8c300;
     margin: 6px;
     color: white;
@@ -106,7 +114,17 @@
 }
 .cantidad-input {
     text-align: center;
-    margin: 12px;
+    margin: 25px;
+    width: 70px;  /* Ajusta el ancho del input */
+    padding: 8px;  /* Ajusta el relleno dentro del input */
+    font-size: 9px;  /* Cambia el tamaño de la fuente */
+    border-radius: 5px;  /* Bordes redondeados */
+    border: 1px solid #ccc;  /* Color del borde */
+}
+
+.cantidad-input2 {
+    text-align: center;
+    margin: 20px;
     width: 70px;  /* Ajusta el ancho del input */
     padding: 8px;  /* Ajusta el relleno dentro del input */
     font-size: 9px;  /* Cambia el tamaño de la fuente */
@@ -116,7 +134,6 @@
 
 
 
-/* Aseguramos que en pantallas pequeñas los elementos se alineen mejor */
 @media (max-width: 768px) {
     .product-card {
         padding: 10px;
@@ -128,14 +145,14 @@
     }
 
     .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajusta las columnas para móviles */
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móviles */
+        max-width: 100%; /* Que ocupe el ancho completo en móviles */
     }
 
     .title {
         font-size: 40px; /* Ajusta el tamaño del título en pantallas pequeñas */
     }
 }
-
 #productForm {
     background: rgba(255, 255, 255, 0.9); /* Fondo más transparente */
     padding: 20px;
