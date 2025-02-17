@@ -268,6 +268,7 @@ firebase.auth().onAuthStateChanged(user => {
         // El usuario está autenticado, muestra el contenido de la página principal
         console.log("Bienvenido", user.email);
     }
-});function goBack() {
+});
+function goBack() {
     window.history.back();
 }

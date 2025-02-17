@@ -294,3 +294,6 @@ firebase.auth().onAuthStateChanged(user => {
         console.log("Bienvenido", user.email);
     }
 });
+function goBack() {
+    window.history.back();
+}

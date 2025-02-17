@@ -11,22 +11,6 @@
     text-align: center;
 }
 
-.btn-volver {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-volver:hover {
-    background-color: #641e1e;
-}
-
 .product-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columnas en PC */
@@ -191,4 +175,18 @@
     .title {
         font-size: 40px; /* Ajusta el tamaño del título en pantallas pequeñas */
     }
+}
+/* Estilo para el icono de retroceso */
+.back-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 30px; /* Ajusta el tamaño */
+    color: #f44336; /* Color rojo */
+    cursor: pointer;
+    z-index: 10;
+}
+
+.back-icon:hover {
+    color: #d32f2f; /* Color al pasar el mouse */
 }
