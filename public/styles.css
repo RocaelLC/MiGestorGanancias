@@ -1,4 +1,4 @@
-/* Reseteo de márgenes y paddings */
+/* 🔹 Reseteo de márgenes y paddings */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@ body, html {
     font-family: 'Arial', sans-serif;
 }
 
-/* Fondo de pantalla */
+/* 🔹 Fondo de pantalla */
 body {
     background: linear-gradient(135deg, #28a745, #3b4249);
     background-size: cover;
@@ -21,7 +21,7 @@ body {
     color: white;
 }
 
-/* Contenedor principal */
+/* 🔹 Contenedor principal */
 .container {
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@ body {
     padding: 20px;
 }
 
-/* Caja de login */
+/* 🔹 Caja de login */
 .login-box {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 40px 30px;
@@ -48,24 +48,24 @@ body {
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Título */
+/* 🔹 Título */
 h2 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
-    color: #4caf50;
+    color: #28a745;
 }
 
-/* Contenedor de los campos de entrada */
+/* 🔹 Contenedor de los campos de entrada */
 .input-box {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
-/* Estilos de los inputs */
-.input-box input {
+/* 🔹 Estilos de los inputs */
+.input-box input, .input-box select {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     border: 2px solid #ddd;
     border-radius: 8px;
     outline: none;
@@ -75,18 +75,18 @@ h2 {
     color: #333;
 }
 
-.input-box input:focus {
+.input-box input:focus, .input-box select:focus {
     border-color: #007bff;
     background: #fff;
 }
 
-/* Estilos del placeholder */
+/* 🔹 Estilos del placeholder */
 .input-box input::placeholder {
     color: #aaa;
     font-style: italic;
 }
 
-/* Botones */
+/* 🔹 Botones */
 .button-box {
     display: flex;
     justify-content: space-between;
@@ -94,7 +94,7 @@ h2 {
     margin-top: 20px;
 }
 
-/* Botones de acción */
+/* 🔹 Botones de acción */
 button {
     padding: 12px 20px;
     border: none;
@@ -113,7 +113,7 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Responsividad */
+/* 🔹 Responsividad */
 @media (max-width: 768px) {
     .login-box {
         padding: 30px 20px;

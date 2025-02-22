@@ -1,46 +1,61 @@
-// Configuración de Firebase
+// Importar Firebase y sus servicios correctamente
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+// 🔹 Configuración de Firebase (debe ser la misma que usaste en `register.js`)
 const firebaseConfig = {
-  apiKey: "AIzaSyB0g3hI2fFBf8dD5rYkt00IY6iyKf0HoUU",
-  authDomain: "migestor-fc269.firebaseapp.com",
-  projectId: "migestor-fc269",
-  storageBucket: "migestor-fc269.appspot.com",
-  messagingSenderId: "901999644556",
-  appId: "1:901999644556:web:d39a8aebd3a22069ca10a9"
-  
+    apiKey: "AIzaSyB0g3hI2fFBf8dD5rYkt00IY6iyKf0HoUU",
+    authDomain: "migestor-fc269.firebaseapp.com",
+    projectId: "migestor-fc269",
+    storageBucket: "migestor-fc269.appspot.com",
+    messagingSenderId: "901999644556",
+    appId: "1:901999644556:web:d39a8aebd3a22069ca10a9"
 };
 
-// Inicializar Firebase
-firebase.initializeApp(firebaseConfig);
+// 🔹 Inicializar Firebase SOLO si no está inicializado antes
+const app = initializeApp(firebaseConfig);
 
-// Manejar el inicio de sesión
-const loginForm = document.querySelector("#loginForm");
+// 🔹 Inicializar los servicios de Firebase
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();  // Prevenir que el formulario se envíe por defecto
+// Manejo del formulario de login
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const email = document.querySelector("#emailLogin").value;
-  const password = document.querySelector("#passwordLogin").value;
+    const email = document.getElementById("emailLogin").value;
+    const password = document.getElementById("passwordLogin").value;
+    const selectedRole = document.getElementById("roleSelector").value;
+    const adminCode = document.getElementById("adminCode")?.value || null; // Captura el código si existe
 
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Inicio de sesión exitoso
-      console.log("Usuario autenticado:", userCredential.user);
-      // Redirigir al inicio
-      window.location.href = "Inicio.html";
-    })
-    .catch((error) => {
-      console.error("Error en el inicio de sesión:", error.message);
-      alert("Error: " + error.message);  // Mostrar el error al usuario
-    });
-    
-});
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-// Verificar autenticación y redirigir si es necesario
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // Usuario está autenticado, redirige a la página de inicio
-    if (window.location.pathname === "/") {  // Asumiendo que el archivo principal es index.html
-      window.location.href = "Inicio.html";
+        // Obtener datos del usuario desde Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            console.log("Usuario autenticado con rol en Firestore:", userData.role);
+
+            if (selectedRole === "admin") {
+                if (adminCode === "123456") { // 🔹 Cambia este código por el real
+                    window.location.href = "Inicio.html";
+                } else {
+                    alert("Código de administrador incorrecto.");
+                }
+            } else if (selectedRole === "trabajador") {
+                window.location.href = "Ventas.html";
+            } else {
+                alert("Rol no reconocido.");
+            }
+        } else {
+            alert("No se encontró el perfil del usuario en Firestore.");
+        }
+    } catch (error) {
+        console.error("Error en el inicio de sesión:", error.message);
+        alert("Error: " + error.message);
     }
-  }
 });
