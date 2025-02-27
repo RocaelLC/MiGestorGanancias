@@ -17,16 +17,6 @@ const logoutButton = document.getElementById('btnLogout');
 const hamburgerMenu = document.querySelector('.hamburger-menu');
 const sidebar = document.querySelector('.sidebar');
 
-// Mostrar el nombre del usuario cuando inicie sesión
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // Si el usuario está autenticado, mostrar el mensaje de bienvenida con su nombre
-        welcomeMessage.textContent = `Bienvenido `;
-    } else {
-        // Si no está autenticado, redirigir al login
-        window.location.href = 'index.html';  // Cambia a tu página de login
-    }
-});
 
 // Cerrar sesión
 logoutButton.addEventListener('click', () => {

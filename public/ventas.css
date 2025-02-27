@@ -217,11 +217,12 @@ th {
 }
 
 
+/* Contenedor de ítems del carrito con scroll */
 #cart-items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+    max-height: 300px; /* Altura máxima para los ítems */
+    overflow-y: auto;  /* Activa el scroll vertical cuando sea necesario */
+    padding: 10px;
+  }
 
 .cart-item {
     display: flex;

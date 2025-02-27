@@ -63,10 +63,10 @@ h1.title {
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 20px;
+    padding: 50px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;

@@ -47,7 +47,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
                     alert("Código de administrador incorrecto.");
                 }
             } else if (selectedRole === "trabajador") {
-                window.location.href = "Ventas.html";
+                window.location.href = "ventas.html";
             } else {
                 alert("Rol no reconocido.");
             }

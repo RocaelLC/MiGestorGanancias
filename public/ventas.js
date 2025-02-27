@@ -16,10 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let productos = [];
     const carrito = [];
+    // Variable global para almacenar el ID del usuario autenticado
+    let currentUserId = null;
 
     // Verifica si el usuario está autenticado
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+            currentUserId = user.uid;
             cargarProductos(user.uid);
         } else {
             Swal.fire({
@@ -42,46 +45,82 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error al cargar productos:", error);
         });
     }
-   // Función para generar un ticket en PDF con un diseño mejorado
-function generarTicket(venta) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
 
-    // Título y formato
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text("Ticket de Venta", 10, 10);
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    
-    // Fecha y total
-    doc.text(`Fecha: ${venta.fecha}`, 10, 20);
-    doc.text(`Total: ${venta.total} pesos`, 10, 30);
-
-    // Estilos para los productos
-    let y = 40;
-    venta.items.forEach(item => {
+    function generarTicket(venta) {
+        const { jsPDF } = window.jspdf;
+        // Creamos un PDF con un formato tipo ticket: 80mm de ancho y altura ajustable
+        const doc = new jsPDF({
+          orientation: 'p',
+          unit: 'mm',
+          format: [80, 200] // ancho 80mm, altura inicial 200mm (se ajusta según contenido)
+        });
+      
+        // Márgenes y posición inicial
+        const marginLeft = 5;
+        const centerX = 40; // centro del ticket (80/2)
+        let currentY = 5;
+      
+        // Título centrado
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text("Ticket de Venta", centerX, currentY, { align: "center" });
+        currentY += 10;
+      
+        // Línea separadora
+        doc.setLineWidth(0.5);
+        doc.line(marginLeft, currentY, 80 - marginLeft, currentY);
+        currentY += 5;
+      
+        // Fecha y total
         doc.setFont("helvetica", "normal");
-        doc.text(`${item.name}`, 10, y);
+        doc.setFontSize(10);
+        doc.text(`Fecha: ${venta.fecha}`, marginLeft, currentY);
+        currentY += 5;
+        doc.text(`Total: ${venta.total} pesos`, marginLeft, currentY);
+        currentY += 7;
+      
+        // Otra línea separadora
+        doc.line(marginLeft, currentY, 80 - marginLeft, currentY);
+        currentY += 5;
+      
+        // Listado de productos
+        venta.items.forEach(item => {
+          // Nombre del producto
+          doc.setFont("helvetica", "bold");
+          doc.text(item.name, marginLeft, currentY);
+          currentY += 4;
+      
+          // Detalles del producto: cantidad, precio y subtotal
+          doc.setFont("helvetica", "normal");
+          const detalles = `cantidad: ${item.cantidad}  Precio: ${item.price}  Subtotal: ${item.subtotal}`;
+          doc.text(detalles, marginLeft, currentY );
+          currentY += 5;
+      
+          // Observaciones (si existen)
+          if (item.observaciones) {
+            doc.setFontSize(8);
+            doc.text(`Observaciones: ${item.observaciones}`, marginLeft, currentY);
+            currentY += 5;
+            doc.setFontSize(10);
+          }
+          
+          // Espacio extra entre items
+          currentY += 2;
+        });
+      
+        // Línea separadora final
+        doc.line(marginLeft, currentY, 80 - marginLeft, currentY);
+        currentY += 5;
+      
+        // Mensaje final centrado
         doc.setFont("helvetica", "italic");
-        doc.text(`Cantidad: ${item.cantidad} | Subtotal: ${item.subtotal} pesos`, 60, y);
-        y += 10;
-    });
-
-    // Línea de separación
-    doc.setLineWidth(0.5);
-    doc.line(10, y + 5, 200, y + 5); // Línea horizontal
-
-    // Pie de página
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "italic");
-    doc.text("Gracias por tu compra. ¡Vuelve pronto!", 10, y + 15);
-
-    // Guardar el archivo
-    doc.save("ticket.pdf");
-}
-
-
+        doc.setFontSize(10);
+        doc.text("¡Gracias por su compra!", centerX, currentY, { align: "center" });
+      
+        // Guardar el PDF
+        doc.save("ticket.pdf");
+      }
+      
     // Función para mostrar productos en la pantalla
     function mostrarProductos() {
         const contenedor = document.getElementById("product-list");
@@ -92,7 +131,7 @@ function generarTicket(venta) {
             card.classList.add("product-card");
 
             card.innerHTML = `
-                <img src="${producto.image}" alt="${producto.name}">
+                <img src="${producto.image}" alt="${producto.name}" onclick="mostrarDetalleProducto('${producto.id}')" style="cursor:pointer;">
                 <h3>${producto.name}</h3>
                 <p>Precio: ${producto.price} pesos</p>
                 <p>Stock: <span id="stock-${producto.id}">${producto.stock}</span></p>
@@ -108,7 +147,7 @@ function generarTicket(venta) {
         });
     }
 
-    // Función para modificar cantidad antes de agregar al carrito
+    // Función para modificar cantidad antes de agregar al carrito (desde la tarjeta)
     window.modificarCantidad = function (id, cambio) {
         let cantidadSpan = document.getElementById(`cantidad-${id}`);
         let cantidad = parseInt(cantidadSpan.innerText);
@@ -118,7 +157,7 @@ function generarTicket(venta) {
         }
     };
 
-    // Función para agregar productos al carrito
+    // Función para agregar productos al carrito desde la tarjeta (sin modal)
     window.agregarAlCarrito = function (id) {
         let cantidad = parseInt(document.getElementById(`cantidad-${id}`).innerText);
         if (cantidad === 0) {
@@ -132,30 +171,78 @@ function generarTicket(venta) {
             return;
         }
 
-        // Buscar si el producto ya está en el carrito
-        let itemCarrito = carrito.find(p => p.id === id);
-        if (itemCarrito) {
-            // Si ya está en el carrito, solo actualizamos la cantidad
-            itemCarrito.cantidad += cantidad;
-        } else {
-            // Si no está en el carrito, lo añadimos
-            carrito.push({ ...producto, cantidad });
-        }
-
-        // Actualizar el contador del carrito
-        actualizarContadorCarrito();
-
-        // Actualizar el carrito visualmente
-        actualizarCarrito();
+        // Usamos el precio original y sin observaciones desde la tarjeta
+        agregarAlCarritoDesdeModal(producto, cantidad, "", producto.price);
 
         // Resetear la cantidad a 0
         document.getElementById(`cantidad-${id}`).innerText = "0";
     };
 
+    // Nueva función para agregar al carrito desde el modal, con precio modificado y observaciones
+    function agregarAlCarritoDesdeModal(producto, cantidad, observaciones, nuevoPrecio) {
+        let itemCarrito = carrito.find(item => item.id === producto.id);
+        if (itemCarrito) {
+            itemCarrito.cantidad += cantidad;
+            itemCarrito.modifiedPrice = nuevoPrecio;
+            if(observaciones) {
+                itemCarrito.observaciones = observaciones;
+            }
+        } else {
+            carrito.push({
+                ...producto,
+                cantidad: cantidad,
+                modifiedPrice: nuevoPrecio,
+                observaciones: observaciones || ""
+            });
+        }
+        actualizarContadorCarrito();
+        actualizarCarrito();
+    }
+
+    // Función para mostrar el detalle del producto en un SweetAlert modal
+window.mostrarDetalleProducto = function (id) {
+    const producto = productos.find(p => p.id === id);
+    if (!producto) return;
+
+    Swal.fire({
+        title: producto.name,
+        width: '480px',  // Ancho reducido para que el modal sea más pequeño
+        html: `
+            <img src="${producto.image}" alt="${producto.name}" style="max-width:50%; margin-bottom:10px;">
+            <p>Stock: ${producto.stock}</p>
+            <p>Precio: <input id="swal-input-price" class="swal2-input" type="number" value="${producto.price}" min="0"></p>
+            <p>Cantidad: <input id="swal-input-quantity" class="swal2-input" type="number" value="1" min="1" max="${producto.stock}"></p>
+            <p>Observaciones: <textarea id="swal-input-obs" class="swal2-textarea" placeholder="Agrega observaciones..."></textarea></p>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Agregar al carrito',
+        preConfirm: () => {
+            const precio = parseFloat(document.getElementById('swal-input-price').value);
+            const cantidad = parseInt(document.getElementById('swal-input-quantity').value);
+            const obs = document.getElementById('swal-input-obs').value;
+            if (isNaN(precio) || precio < 0 || isNaN(cantidad) || cantidad < 1) {
+                Swal.showValidationMessage('Por favor ingresa un precio válido y cantidad');
+                return false;
+            }
+            if (cantidad > producto.stock) {
+                Swal.showValidationMessage('La cantidad supera el stock disponible');
+                return false;
+            }
+            return { precio, cantidad, obs };
+        }
+    }).then(result => {
+        if (result.isConfirmed) {
+            const { precio, cantidad, obs } = result.value;
+            agregarAlCarritoDesdeModal(producto, cantidad, obs, precio);
+            Swal.fire('Agregado', 'El producto ha sido agregado al carrito', 'success');
+        }
+    });
+};
+
     // Función para actualizar el contador del carrito
     function actualizarContadorCarrito() {
         const cartCount = document.getElementById("cart-count");
-        cartCount.innerText = carrito.reduce((total, item) => total + item.cantidad, 0);  // Sumar todas las cantidades
+        cartCount.innerText = carrito.reduce((total, item) => total + item.cantidad, 0);
     }
 
     // Función para actualizar el carrito visualmente
@@ -163,8 +250,7 @@ function generarTicket(venta) {
         const cartItems = document.getElementById("cart-items");
         if (!cartItems) return;
 
-        cartItems.innerHTML = ""; // Limpiar el contenedor antes de mostrar los productos del carrito
-
+        cartItems.innerHTML = "";
         if (carrito.length === 0) {
             cartItems.innerHTML = "<p>El carrito está vacío</p>";
             return;
@@ -174,18 +260,17 @@ function generarTicket(venta) {
             const cartItem = document.createElement("div");
             cartItem.classList.add("cart-item");
 
-            // Cambio a una función anónima que pasa el índice
             cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <div class="cart-item-info">
-                <span>${item.name}</span>
-                <span>Cantidad: ${item.cantidad}</span>
-                <span>Precio: ${item.price * item.cantidad} pesos</span>
-            </div>
-            <button>Eliminar</button>
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-info">
+                    <span>${item.name}</span>
+                    <span>Cantidad: ${item.cantidad}</span>
+                    <span>Precio: ${item.modifiedPrice ? item.modifiedPrice : item.price} pesos</span>
+                    ${ item.observaciones ? `<span>Obs: ${item.observaciones}</span>` : '' }
+                </div>
+                <button>Eliminar</button>
             `;
-            cartItem.querySelector("button").addEventListener("click", () => eliminarDelCarrito(index)); // Asignación del evento click 
-
+            cartItem.querySelector("button").addEventListener("click", () => eliminarDelCarrito(index));
             cartItems.appendChild(cartItem);
         });
     }
@@ -193,8 +278,8 @@ function generarTicket(venta) {
     // Función para eliminar productos del carrito
     function eliminarDelCarrito(index) {
         carrito.splice(index, 1);
-        actualizarContadorCarrito();  // Actualizar el contador
-        actualizarCarrito();  // Actualizar la vista del carrito
+        actualizarContadorCarrito();
+        actualizarCarrito();
     }
 
     // Agregar la funcionalidad de búsqueda
@@ -208,14 +293,12 @@ function generarTicket(venta) {
     // Función para mostrar los productos filtrados
     function mostrarProductosFiltrados(productosFiltrados) {
         const contenedor = document.getElementById("product-list");
-        contenedor.innerHTML = ""; // Limpiar el contenedor
-
+        contenedor.innerHTML = "";
         productosFiltrados.forEach(producto => {
             const card = document.createElement("div");
             card.classList.add("product-card");
-
             card.innerHTML = `
-                <img src="${producto.image}" alt="${producto.name}">
+                <img src="${producto.image}" alt="${producto.name}" onclick="mostrarDetalleProducto('${producto.id}')" style="cursor:pointer;">
                 <h3>${producto.name}</h3>
                 <p>Precio: ${producto.price} pesos</p>
                 <p>Stock: <span id="stock-${producto.id}">${producto.stock}</span></p>
@@ -226,82 +309,102 @@ function generarTicket(venta) {
                 </div>
                 <button onclick="agregarAlCarrito('${producto.id}')">Agregar al carrito</button>
             `;
-            
-
             contenedor.appendChild(card);
         });
     }
 
-   // Función para finalizar la venta y guardar en Firebase
-   const finalizarVentaBtn = document.getElementById("finalize-sale");
-   if (finalizarVentaBtn) {
-       finalizarVentaBtn.addEventListener("click", () => {
-           if (carrito.length === 0) {
-               Swal.fire('Error', 'El carrito está vacío.', 'error');
-               return;
-           }
+    // Función para finalizar la venta y guardar en Firebase
+    const finalizarVentaBtn = document.getElementById("finalize-sale");
+    if (finalizarVentaBtn) {
+        finalizarVentaBtn.addEventListener("click", async () => {
+            if (carrito.length === 0) {
+                Swal.fire('Error', 'El carrito está vacío.', 'error');
+                return;
+            }
 
-           finalizarVentaBtn.disabled = true;
-           Swal.fire({
-               title: 'Procesando...',
-               allowOutsideClick: false,
-               didOpen: () => {
-                   Swal.showLoading();
-               }
-           });
+            finalizarVentaBtn.disabled = true;
+            Swal.fire({
+                title: 'Procesando...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
 
-           const venta = {
-               fecha: new Date().toISOString(),
-               total: carrito.reduce((acc, item) => acc + item.price * item.cantidad, 0),
-               items: carrito.map(item => ({
-                   id: item.id,
-                   name: item.name,
-                   cantidad: item.cantidad,
-                   subtotal: item.price * item.cantidad
-               }))
-           };
+            // Crear el objeto de la venta con los productos y totales,
+            // utilizando el precio modificado (si existe) y agregando observaciones.
+            const venta = {
+                fecha: new Date().toISOString(),
+                total: carrito.reduce((acc, item) => {
+                    const precio = item.modifiedPrice ? item.modifiedPrice : item.price;
+                    return acc + precio * item.cantidad;
+                }, 0),
+                items: carrito.map(item => {
+                    const precio = item.modifiedPrice ? item.modifiedPrice : item.price;
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        cantidad: item.cantidad,
+                        price: precio,
+                        subtotal: precio * item.cantidad,
+                        observaciones: item.observaciones || ""
+                    };
+                }),
+                userId: currentUserId
+            };
 
-           db.collection("ventas").add(venta).then(() => {
-               db.collection("tickets").add(venta).then(() => {
-                   Swal.fire('Éxito', 'Venta finalizada con éxito.', 'success');
-                   generarTicket(venta);
-                   carrito.length = 0;
-                   actualizarContadorCarrito();
-                   actualizarCarrito();
-                   finalizarVentaBtn.disabled = false;
-               });
-           }).catch(error => {
-               Swal.fire('Error', 'Hubo un problema al procesar la venta.', 'error');
-               console.error("Error al finalizar la venta:", error);
-               finalizarVentaBtn.disabled = false;
-           });
-       });
-   }
+            try {
+                // Guardar la venta en Firestore
+                await db.collection("ventas").add(venta);
 
-});
+                // Actualizar el stock de cada producto vendido
+                const batch = db.batch();
+                for (const item of carrito) {
+                    const productoRef = db.collection("productos").doc(item.id);
+                    const productoDoc = await productoRef.get();
+                    if (productoDoc.exists) {
+                        const nuevoStock = productoDoc.data().stock - item.cantidad;
+                        batch.update(productoRef, { stock: nuevoStock });
+                    }
+                }
+                await batch.commit();
 
-// Obtén los elementos necesarios
-const cartIcon = document.getElementById('cart-icon');
-const cartPopup = document.getElementById('cart-popup');
+                // Guardar la venta en la colección "tickets" para generar el recibo
+                await db.collection("tickets").add(venta);
 
-// Manejador de clic para mostrar/ocultar el carrito
-cartIcon.addEventListener('click', (e) => {
-    // Evitar que el clic en el ícono cierre el carrito inmediatamente
-    e.stopPropagation();
-    // Alternar la visibilidad del carrito emergente
-    if (cartPopup.style.display === 'block') {
-        cartPopup.style.display = 'none';
-    } else {
-        cartPopup.style.display = 'block';
+                Swal.fire('Éxito', 'Venta finalizada con éxito.', 'success');
+
+                // Generar el ticket en PDF
+                generarTicket(venta);
+
+                // Reiniciar el carrito
+                carrito.length = 0;
+                actualizarContadorCarrito();
+                actualizarCarrito();
+                finalizarVentaBtn.disabled = false;
+
+            } catch (error) {
+                Swal.fire('Error', 'Hubo un problema al procesar la venta.', 'error');
+                console.error("Error al finalizar la venta:", error);
+                finalizarVentaBtn.disabled = false;
+            }
+        });
     }
+
+    // Manejo del carrito emergente
+    const cartIcon = document.getElementById('cart-icon');
+    const cartPopup = document.getElementById('cart-popup');
+    cartIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        cartPopup.style.display = (cartPopup.style.display === 'block') ? 'none' : 'block';
+    });
+    document.addEventListener('click', (e) => {
+        if (!cartIcon.contains(e.target) && !cartPopup.contains(e.target)) {
+            cartPopup.style.display = 'none';
+        }
+    });
 });
 
-// Cerrar el carrito si se hace clic fuera del carrito o el ícono
-document.addEventListener('click', (e) => {
-    if (!cartIcon.contains(e.target) && !cartPopup.contains(e.target)) {
-        cartPopup.style.display = 'none';
-    }
-});
 function goBack() {
     window.history.back();
 }
