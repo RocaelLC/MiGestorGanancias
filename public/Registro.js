@@ -18,7 +18,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Código secreto del administrador (puedes guardarlo en Firestore si prefieres)
-const ADMIN_SECRET_CODE = "123456"; // 🔹 Cámbialo por un código seguro
+const ADMIN_SECRET_CODE = "Somacafe23"; // 🔹 Cámbialo por un código seguro
 
 // Manejar el registro
 document.getElementById("registerForm").addEventListener("submit", async (e) => {

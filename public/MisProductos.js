@@ -90,7 +90,7 @@ async function loadProducts() {
         const card = document.createElement('div');
         card.className = 'product-card';
 
-        // Verifica el stock y muestra alerta si es menor  a 5
+        // Verifica el stock y muestra alerta si es menor a 5
         if (product.stock < 5) {
             Swal.fire({
                 title: 'Alerta',
@@ -99,14 +99,21 @@ async function loadProducts() {
             });
         }
 
+        // Se agrega un contenedor para la imagen con un ícono de edición superpuesto
         card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
+            <div class="product-image-container" style="position: relative; display: inline-block;">
+                <img src="${product.image}" alt="${product.name}">
+                <span class="btn-edit" data-id="${doc.id}" 
+                    style="position: absolute; top: 10 px; left: 10px; cursor: pointer; background: rgba(255,255,255,0.7); padding: 5px; border-radius: 50%;">
+                    ✎
+                </span>
+            </div>
             <h3>${product.name}</h3>
             <p>Precio: ${product.price} pesos</p>
             <p>Stock: ${product.stock}</p>
             <button class="btn-eliminar" data-id="${doc.id}">Eliminar</button>
             <input type="number" id="cantidad-${doc.id}"  class="cantidad-input" placeholder="Vendido hoy" min="1">
-             <button class="btn-descuento" data-id="${doc.id}">Descontar Stock</button>
+            <button class="btn-descuento" data-id="${doc.id}">Descontar Stock</button>
             <input type="number" id="cantidad-add-${doc.id}" class="cantidad-input2" placeholder="Añadir stock" min="1">
             <button class="btn-add-stock" data-id="${doc.id}">Reañadir Stock</button>
         `;
@@ -114,19 +121,86 @@ async function loadProducts() {
         productsList.appendChild(card);
     });
 
-    // Añadir event listeners para los botones de eliminar y descontar
+    // Añadir event listeners para los botones de eliminar, editar, descontar y reañadir stock
     document.querySelectorAll('.btn-eliminar').forEach(button => {
         button.addEventListener('click', deleteProduct);
+    });
+
+    document.querySelectorAll('.btn-edit').forEach(button => {
+        button.addEventListener('click', editProduct);
     });
 
     document.querySelectorAll('.btn-descuento').forEach(button => {
         button.addEventListener('click', discountStock);
     });
+
     document.querySelectorAll('.btn-add-stock').forEach(button => {
         button.addEventListener('click', reAddStock);
     });
 }
 
+// Función para editar un producto
+async function editProduct(e) {
+    const productId = e.target.dataset.id;
+
+    try {
+        const productRef = db.collection('productos').doc(productId);
+        const productDoc = await productRef.get();
+
+        if (!productDoc.exists) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Producto no encontrado',
+                icon: 'error'
+            });
+            return;
+        }
+
+        const product = productDoc.data();
+
+        const { value: formValues } = await Swal.fire({
+            title: 'Editar producto',
+            html:
+                `<input id="swal-input1" class="swal2-input" placeholder="Nombre" value="${product.name}">` +
+                `<input id="swal-input2" type="number" class="swal2-input" placeholder="Precio" value="${product.price}">` +
+                `<input id="swal-input3" type="number" class="swal2-input" placeholder="Stock" value="${product.stock}">`,
+            focusConfirm: false,
+            showCancelButton: true,
+            preConfirm: () => {
+                return [
+                    document.getElementById('swal-input1').value,
+                    document.getElementById('swal-input2').value,
+                    document.getElementById('swal-input3').value
+                ];
+            }
+        });
+
+        if (formValues) {
+            const [newName, newPrice, newStock] = formValues;
+
+            // Actualiza el producto en Firebase
+            await productRef.update({
+                name: newName,
+                price: newPrice,
+                stock: parseInt(newStock)
+            });
+
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Producto actualizado correctamente',
+                icon: 'success'
+            });
+            loadProducts();
+        }
+    } catch (error) {
+        console.error("Error al actualizar producto: ", error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Error al actualizar el producto',
+            icon: 'error'
+        });
+    }
+}
 
 // Función para eliminar un producto
 async function deleteProduct(e) {
@@ -153,10 +227,8 @@ async function deleteProduct(e) {
 // Función para descontar el stock de un producto
 async function discountStock(e) {
     const productId = e.target.dataset.id;
-    
-    // Verifica si el input con el id correspondiente existe
     const cantidadInput = document.getElementById(`cantidad-${productId}`);
-    
+
     if (!cantidadInput) {
         Swal.fire({
             title: 'Error',
@@ -168,7 +240,6 @@ async function discountStock(e) {
 
     const cantidad = parseInt(cantidadInput.value);
 
-    // Verifica que la cantidad sea válida
     if (!cantidad || cantidad <= 0) {
         Swal.fire({
             title: 'Error',
@@ -182,7 +253,6 @@ async function discountStock(e) {
         const productRef = db.collection('productos').doc(productId);
         const productDoc = await productRef.get();
 
-        // Verifica que el producto exista
         if (!productDoc.exists) {
             Swal.fire({
                 title: 'Error',
@@ -195,7 +265,6 @@ async function discountStock(e) {
         const product = productDoc.data();
         const currentStock = product.stock;
 
-        // Verifica si hay suficiente stock para descontar
         if (cantidad > currentStock) {
             Swal.fire({
                 title: 'Error',
@@ -205,7 +274,6 @@ async function discountStock(e) {
             return;
         }
 
-        // Actualiza el stock
         const newStock = currentStock - cantidad;
 
         await productRef.update({
@@ -214,12 +282,11 @@ async function discountStock(e) {
 
         Swal.fire({
             title: 'Éxito',
-            text: `Se ha descontado ${cantidad} unidades del producto ${product.name}. Nuevo stock: ${newStock}` ,
+            text: `Se ha descontado ${cantidad} unidades del producto ${product.name}. Nuevo stock: ${newStock}`,
             icon: 'success'
         });
-        
 
-        loadProducts(); // Recarga los productos para ver los cambios
+        loadProducts();
     } catch (error) {
         console.error("Error al descontar stock: ", error);
         Swal.fire({
@@ -228,14 +295,14 @@ async function discountStock(e) {
             icon: 'error'
         });
     }
-} 
+}
+
 // Función para reañadir stock
 async function reAddStock(e) {
     const productId = e.target.dataset.id;
     const addStockInput = document.getElementById(`cantidad-add-${productId}`);
     const cantidadToAdd = parseInt(addStockInput.value);
 
-    // Verifica que la cantidad sea válida
     if (!cantidadToAdd || cantidadToAdd <= 0) {
         Swal.fire({
             title: 'Error',
@@ -249,7 +316,6 @@ async function reAddStock(e) {
         const productRef = db.collection('productos').doc(productId);
         const productDoc = await productRef.get();
 
-        // Verifica que el producto exista
         if (!productDoc.exists) {
             Swal.fire({
                 title: 'Error',
@@ -261,9 +327,8 @@ async function reAddStock(e) {
 
         const product = productDoc.data();
         const currentStock = product.stock;
-
-        // Actualiza el stock
         const newStock = currentStock + cantidadToAdd;
+
         await productRef.update({
             stock: newStock
         });
@@ -274,7 +339,7 @@ async function reAddStock(e) {
             icon: 'success'
         });
 
-        loadProducts(); // Recarga los productos para ver los cambios
+        loadProducts();
     } catch (error) {
         console.error("Error al añadir stock: ", error);
         Swal.fire({
@@ -285,7 +350,6 @@ async function reAddStock(e) {
     }
 }
 
-
 // Verifica si el usuario está autenticado al cargar la página
 firebase.auth().onAuthStateChanged(user => {
     if (!user) {
@@ -294,6 +358,7 @@ firebase.auth().onAuthStateChanged(user => {
         console.log("Bienvenido", user.email);
     }
 });
+
 function goBack() {
     window.history.back();
 }

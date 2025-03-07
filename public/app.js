@@ -41,7 +41,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
             console.log("Usuario autenticado con rol en Firestore:", userData.role);
 
             if (selectedRole === "admin") {
-                if (adminCode === "123456") { // 🔹 Cambia este código por el real
+                if (adminCode === "Somacafe23") { // 🔹 Cambia este código por el real
                     window.location.href = "Inicio.html";
                 } else {
                     alert("Código de administrador incorrecto.");
